@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:whats_app_clone/theme/custom_theme.dart';
 import 'package:whats_app_clone/ui/views/chat/widgets/message_bubble.dart';
 import 'package:whats_app_clone/ui/views/chat/widgets/message_input_row.dart';
 import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';

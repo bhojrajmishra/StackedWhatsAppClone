@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:whats_app_clone/theme/custom_theme.dart';
 import 'package:whats_app_clone/ui/views/chat/widgets/custom_chat_list.dart';
+import 'package:whats_app_clone/ui/views/setting/setting_view.dart';
 import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';
 import 'package:whats_app_clone/ui/widgets/user_listview_builder.dart';
 import 'home_viewmodel.dart';
@@ -63,10 +64,10 @@ class HomeView extends StackedView<HomeViewModel> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const SettingView()),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingView()),
+            );
           },
           backgroundColor: const Color.fromARGB(255, 16, 83, 18),
           child:

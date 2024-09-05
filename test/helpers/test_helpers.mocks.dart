@@ -12,6 +12,7 @@ import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 import 'package:whats_app_clone/services/home_service.dart' as _i10;
 import 'package:whats_app_clone/services/login_service.dart' as _i7;
+import 'package:whats_app_clone/services/registration_service.dart' as _i11;
 import 'package:whats_app_clone/ui/views/login/login_request.dart' as _i9;
 import 'package:whats_app_clone/ui/views/login/login_response.dart' as _i8;
 
@@ -103,7 +104,7 @@ class MockNavigationService extends _i1.Mock implements _i2.NavigationService {
     Duration? duration,
     bool? popGesture,
     int? id,
-    dynamic curve,
+    _i4.Curve? curve,
     bool? fullscreenDialog = false,
     bool? preventDuplicates = true,
     _i2.Transition? transitionClass,
@@ -139,7 +140,7 @@ class MockNavigationService extends _i1.Mock implements _i2.NavigationService {
     Duration? duration,
     bool? popGesture,
     int? id,
-    dynamic curve,
+    _i4.Curve? curve,
     bool? fullscreenDialog = false,
     bool? preventDuplicates = true,
     _i2.Transition? transitionClass,
@@ -238,7 +239,7 @@ class MockNavigationService extends _i1.Mock implements _i2.NavigationService {
     dynamic arguments,
     int? id,
     bool? opaque,
-    dynamic curve,
+    _i4.Curve? curve,
     Duration? duration,
     bool? fullscreenDialog = false,
     bool? popGesture,
@@ -706,3 +707,9 @@ class MockLoginService extends _i1.Mock implements _i7.LoginService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockHomeService extends _i1.Mock implements _i10.HomeService {}
+
+/// A class which mocks [RegistrationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRegistrationService extends _i1.Mock
+    implements _i11.RegistrationService {}

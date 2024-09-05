@@ -4,6 +4,7 @@ import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/services/login_service.dart';
 import 'package:whats_app_clone/services/home_service.dart';
+import 'package:whats_app_clone/services/registration_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +15,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<LoginService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<HomeService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<RegistrationService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -22,6 +24,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterLoginService();
   getAndRegisterHomeService();
+  getAndRegisterRegistrationService();
 // @stacked-mock-register
 }
 
@@ -86,6 +89,13 @@ MockHomeService getAndRegisterHomeService() {
   _removeRegistrationIfExists<HomeService>();
   final service = MockHomeService();
   locator.registerSingleton<HomeService>(service);
+  return service;
+}
+
+MockRegistrationService getAndRegisterRegistrationService() {
+  _removeRegistrationIfExists<RegistrationService>();
+  final service = MockRegistrationService();
+  locator.registerSingleton<RegistrationService>(service);
   return service;
 }
 // @stacked-mock-create

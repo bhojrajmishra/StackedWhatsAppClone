@@ -8,6 +8,9 @@ import 'package:whats_app_clone/ui/views/login/login_view.dart';
 import 'package:whats_app_clone/services/login_service.dart';
 import 'package:whats_app_clone/services/home_service.dart';
 import 'package:whats_app_clone/ui/views/chat/chat_view.dart';
+import 'package:whats_app_clone/ui/views/setting/setting_view.dart';
+import 'package:whats_app_clone/ui/views/registration/registration_view.dart';
+import 'package:whats_app_clone/services/registration_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -16,6 +19,8 @@ import 'package:whats_app_clone/ui/views/chat/chat_view.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
     MaterialRoute(page: ChatView),
+    MaterialRoute(page: SettingView),
+    MaterialRoute(page: RegistrationView),
 // @stacked-route
   ],
   dependencies: [
@@ -24,6 +29,7 @@ import 'package:whats_app_clone/ui/views/chat/chat_view.dart';
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: LoginService),
     LazySingleton(classType: HomeService),
+    LazySingleton(classType: RegistrationService),
 // @stacked-service
   ],
   bottomsheets: [
