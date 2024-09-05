@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:whats_app_clone/ui/common/app_colors.dart';
-import 'package:whats_app_clone/ui/common/ui_helpers.dart';
+import 'package:whats_app_clone/theme/custom_theme.dart';
+import 'package:whats_app_clone/ui/widgets/custom_chat_list.dart';
+import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';
+import 'package:whats_app_clone/ui/widgets/user_listview_builder.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
@@ -13,64 +15,62 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: UserAppBar(
+          title: "WhatsApp",
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {},
+              color: CustomTheme.inversePrimary(context),
             ),
+            IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () {},
+              color: CustomTheme.inversePrimary(context),
+            ),
+          ],
+          bottom: TabBar(
+            tabs: const [
+              Tab(text: "Chats"),
+              Tab(text: "Status"),
+              Tab(text: "Calls"),
+            ],
+            labelColor: CustomTheme.inversePrimary(context),
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: CustomTheme.inversePrimary(context),
           ),
+        ),
+        body: TabBarView(
+          children: [
+            viewModel.isBusy
+                ? const Center(child: CircularProgressIndicator())
+                : CustomChatList(
+                    chats: viewModel.chats,
+                    onRefresh: viewModel.fetchUserList,
+                  ),
+            const UserListviewbuilder(
+              status: ["Status 1", "Status 2", "Status 3"],
+              icon: Icons.account_circle,
+            ),
+            const UserListviewbuilder(
+              status: ["Call 1", "Call 2", "Call 3"],
+              icon: Icons.call,
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const SettingView()),
+            // );
+          },
+          backgroundColor: const Color.fromARGB(255, 16, 83, 18),
+          child:
+              Icon(Icons.settings, color: CustomTheme.inversePrimary(context)),
         ),
       ),
     );

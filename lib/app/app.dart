@@ -6,6 +6,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/ui/views/login/login_view.dart';
 import 'package:whats_app_clone/services/login_service.dart';
+import 'package:whats_app_clone/services/home_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -20,6 +21,7 @@ import 'package:whats_app_clone/services/login_service.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: LoginService),
+    LazySingleton(classType: HomeService),
 // @stacked-service
   ],
   bottomsheets: [

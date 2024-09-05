@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:whats_app_clone/ui/views/home/home_view.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:whats_app_clone/app/app.locator.dart';
+import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/ui/views/login/login_request.dart';
 import 'package:whats_app_clone/ui/views/login/login_response.dart';
 import 'package:whats_app_clone/ui/views/login/repository/login_repository.dart';
 import 'package:whats_app_clone/ui/views/login/repository/login_repository_impl.dart';
 
 class LoginViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
+  // final _snackBarService = locator<SnackbarService>();
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final LoginRepository _loginRepository = LoginRepositoryImpl();
 
-  Future<void> requestLoginApi(BuildContext context) async {
+  Future<void> requestLoginApi() async {
     if (!formKey.currentState!.validate()) {
-      _showSnackBar(context, 'Please fill all fields');
       return;
     }
 
-    //  updateLoading(loading: true);
+    setBusy(true);
 
     LoginRequest loginRequest = LoginRequest(
       email: emailController.text,
@@ -27,33 +31,23 @@ class LoginViewModel extends BaseViewModel {
     LoginResponse? loginResult =
         await _loginRepository.requestLoginApi(loginRequest);
 
-    // updateLoading(loading: false);
+    setBusy(false);
 
-    if (!context.mounted) return;
     if (loginResult != null) {
-      _navigateToHome(context);
+      _navigateToHome();
     } else {
-      _showSnackBar(context, 'Login failed');
+      // _snackBarService.showSnackbar(message: 'Login failed');
     }
   }
 
-  Future<void> checkLoginStatus(BuildContext context) async {
+  Future<void> checkLoginStatus() async {
     String? token = await _loginRepository.getToken();
-    if (token != null && context.mounted) {
-      _navigateToHome(context);
+    if (token != null) {
+      _navigateToHome();
     }
   }
 
-  void _showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
-
-  void _navigateToHome(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeView()),
-    );
+  void _navigateToHome() {
+    _navigationService.navigateToHomeView();
   }
 }
