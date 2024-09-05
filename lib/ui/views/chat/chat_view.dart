@@ -8,7 +8,7 @@ import 'chat_viewmodel.dart';
 
 class ChatView extends StackedView<ChatViewModel> {
   final String title;
-  const ChatView({Key? key, this.title = ""})
+  const ChatView({Key? key, required this.title})
       : super(
           key: key,
         );

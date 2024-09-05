@@ -40,7 +40,7 @@ class HomeView extends StackedView<HomeViewModel> {
               Tab(text: "Calls"),
             ],
             labelColor: CustomTheme.inversePrimary(context),
-            unselectedLabelColor: Colors.white,
+            unselectedLabelColor: CustomTheme.inversePrimary(context),
             indicatorColor: CustomTheme.inversePrimary(context),
           ),
         ),
@@ -69,7 +69,7 @@ class HomeView extends StackedView<HomeViewModel> {
               MaterialPageRoute(builder: (context) => const SettingView()),
             );
           },
-          backgroundColor: const Color.fromARGB(255, 16, 83, 18),
+          backgroundColor: CustomTheme.primary(context),
           child:
               Icon(Icons.settings, color: CustomTheme.inversePrimary(context)),
         ),

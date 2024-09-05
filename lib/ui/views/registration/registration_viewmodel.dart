@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:whats_app_clone/constant/constants_validation.dart';
+import 'package:whats_app_clone/ui/common/app_strings.dart';
 import 'package:whats_app_clone/ui/views/login/login_view.dart';
 import 'package:whats_app_clone/ui/views/registration/model/registration_request.dart';
 import 'package:whats_app_clone/ui/views/registration/model/registration_response.dart';
@@ -21,7 +21,7 @@ class RegistrationViewModel extends BaseViewModel {
     final password = passwordController.text;
 
     if (!formsKey.currentState!.validate()) {
-      _showSnackBar(context, ConstantsValidation.fillAllFieldsMessage);
+      _showSnackBar(context, fillAllFieldsMessage);
       return;
     }
 
@@ -44,7 +44,7 @@ class RegistrationViewModel extends BaseViewModel {
       _handleSuccessfullRegistor(registorResult);
       _navigateToLogin(context);
     } else {
-      _showSnackBar(context, ConstantsValidation.registrationFailedMessage);
+      _showSnackBar(context, registrationFailedMessage);
     }
   }
 
