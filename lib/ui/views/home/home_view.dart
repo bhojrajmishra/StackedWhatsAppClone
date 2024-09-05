@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:whats_app_clone/theme/custom_theme.dart';
-import 'package:whats_app_clone/ui/widgets/custom_chat_list.dart';
+import 'package:whats_app_clone/ui/views/chat/widgets/custom_chat_list.dart';
 import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';
 import 'package:whats_app_clone/ui/widgets/user_listview_builder.dart';
 import 'home_viewmodel.dart';
@@ -39,7 +39,7 @@ class HomeView extends StackedView<HomeViewModel> {
               Tab(text: "Calls"),
             ],
             labelColor: CustomTheme.inversePrimary(context),
-            unselectedLabelColor: Colors.grey,
+            unselectedLabelColor: Colors.white,
             indicatorColor: CustomTheme.inversePrimary(context),
           ),
         ),

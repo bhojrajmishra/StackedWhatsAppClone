@@ -7,6 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/ui/views/login/login_view.dart';
 import 'package:whats_app_clone/services/login_service.dart';
 import 'package:whats_app_clone/services/home_service.dart';
+import 'package:whats_app_clone/ui/views/chat/chat_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -14,6 +15,7 @@ import 'package:whats_app_clone/services/home_service.dart';
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
+    MaterialRoute(page: ChatView),
 // @stacked-route
   ],
   dependencies: [

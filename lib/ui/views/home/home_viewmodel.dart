@@ -3,7 +3,12 @@ import 'package:whats_app_clone/model/user_list_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:whats_app_clone/ui/views/home/repository/user_list_repository_impl.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModel with Initialisable {
+  @override
+  Future<void> initialise() async {
+    await fetchUserList();
+  }
+
   List<UserListModel> chats = [];
 
   Future<void> fetchUserList() async {

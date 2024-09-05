@@ -32,7 +32,6 @@ class LoginViewModel extends BaseViewModel {
         await _loginRepository.requestLoginApi(loginRequest);
 
     setBusy(false);
-
     if (loginResult != null) {
       _navigateToHome();
     } else {
@@ -48,6 +47,6 @@ class LoginViewModel extends BaseViewModel {
   }
 
   void _navigateToHome() {
-    _navigationService.navigateToHomeView();
+    _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
   }
 }

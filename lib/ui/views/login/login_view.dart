@@ -39,7 +39,7 @@ class LoginView extends StackedView<LoginViewModel> {
             ),
             const SizedBox(height: 23),
             CustomButton(
-              text: 'Login',
+              text: viewModel.isBusy ? "Loading..." : "Login",
               onPressed: () {
                 viewModel.requestLoginApi();
               },
