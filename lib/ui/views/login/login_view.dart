@@ -28,7 +28,7 @@ class LoginView extends StackedView<LoginViewModel> {
                 controller: viewModel.emailController,
                 labelText: "Email",
                 obscureText: false,
-                validator: (value) => Validator.emailValidator()(value),
+                validator: (value) => Validator.emailValidator(value),
               ),
             ),
             const SizedBox(height: 23),
@@ -36,7 +36,7 @@ class LoginView extends StackedView<LoginViewModel> {
               controller: viewModel.passwordController,
               labelText: "Password",
               obscureText: true,
-              validator: (value) => Validator.passwordValidator()(value),
+              validator: (value) => Validator.passwordValidator(value),
             ),
             const SizedBox(height: 23),
             CustomButton(

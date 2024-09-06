@@ -45,14 +45,14 @@ class RegistrationView extends StackedView<RegistrationViewModel> {
                         labelText: "Full Name",
                         obscureText: false,
                         validator: (value) =>
-                            Validator.userNameValidator()(value),
+                            Validator.userNameValidator(value),
                       ),
                       const SizedBox(height: 23),
                       CustomTextFormField(
                         controller: viewModel.emailController,
                         labelText: "Email",
                         obscureText: false,
-                        validator: (value) => Validator.emailValidator()(value),
+                        validator: (value) => Validator.emailValidator(value),
                       ),
                       const SizedBox(height: 23),
                       CustomTextFormField(
@@ -60,7 +60,7 @@ class RegistrationView extends StackedView<RegistrationViewModel> {
                         labelText: "Password",
                         obscureText: true,
                         validator: (value) =>
-                            Validator.passwordValidator()(value),
+                            Validator.passwordValidator(value),
                       ),
                       const SizedBox(height: 23),
                       CustomButton(

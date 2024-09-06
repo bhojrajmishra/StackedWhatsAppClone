@@ -13,8 +13,9 @@ import 'package:stacked_services/stacked_services.dart' as _i2;
 import 'package:whats_app_clone/services/home_service.dart' as _i10;
 import 'package:whats_app_clone/services/login_service.dart' as _i7;
 import 'package:whats_app_clone/services/registration_service.dart' as _i11;
-import 'package:whats_app_clone/ui/views/login/login_request.dart' as _i9;
-import 'package:whats_app_clone/ui/views/login/login_response.dart' as _i8;
+import 'package:whats_app_clone/ui/views/login/model/login_request.dart' as _i9;
+import 'package:whats_app_clone/ui/views/login/model/login_response.dart'
+    as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

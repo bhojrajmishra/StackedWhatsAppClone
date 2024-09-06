@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:whats_app_clone/ui/views/login/login_request.dart';
-import 'package:whats_app_clone/ui/views/login/login_response.dart';
+import 'package:whats_app_clone/ui/views/login/model/login_request.dart';
+import 'package:whats_app_clone/ui/views/login/model/login_response.dart';
 import 'package:whats_app_clone/utils/api_path.dart';
 
 class LoginService {
