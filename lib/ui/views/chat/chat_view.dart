@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:whats_app_clone/theme/custom_theme.dart';
 import 'package:whats_app_clone/ui/views/chat/widgets/message_bubble.dart';
 import 'package:whats_app_clone/ui/views/chat/widgets/message_input_row.dart';
 import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';
@@ -22,18 +23,18 @@ class ChatView extends StackedView<ChatViewModel> {
     return Scaffold(
       appBar: UserAppBar(
         title: title,
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
+        backgroundColor: CustomTheme.primary(context),
+        foregroundColor: CustomTheme.inversePrimary(context),
         actions: [
           IconButton(
             icon: const Icon(Icons.attach_file_outlined),
             onPressed: () {},
-            color: Colors.white,
+            color: CustomTheme.inversePrimary(context),
           ),
           IconButton(
             icon: const Icon(Icons.more_vert),
             onPressed: () {},
-            color: Colors.white,
+            color: CustomTheme.inversePrimary(context),
           ),
         ],
       ),

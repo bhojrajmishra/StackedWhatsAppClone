@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:whats_app_clone/app/app.locator.dart';
+import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/ui/common/app_strings.dart';
-import 'package:whats_app_clone/ui/views/login/login_view.dart';
 import 'package:whats_app_clone/ui/views/registration/model/registration_request.dart';
 import 'package:whats_app_clone/ui/views/registration/model/registration_response.dart';
 import 'package:whats_app_clone/ui/views/registration/repository/registration_repository.dart';
@@ -12,20 +14,23 @@ class RegistrationViewModel extends BaseViewModel {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final GlobalKey<FormState> formsKey = GlobalKey<FormState>();
+
   final RegistrationRepository _registrationRepository =
       RegistrationRepositoryImpl();
+  final _navigationService = locator<NavigationService>();
+  final _snackbarService = locator<SnackbarService>();
 
-  Future<void> requestRegisterApi(BuildContext context) async {
+  Future<void> requestRegisterApi() async {
     final fullname = nameController.text;
     final email = emailController.text;
     final password = passwordController.text;
 
     if (!formsKey.currentState!.validate()) {
-      _showSnackBar(context, fillAllFieldsMessage);
+      _snackbarService.showSnackbar(message: fillAllFieldsMessage);
       return;
     }
 
-    busy(true);
+    setBusy(true);
 
     RegistrationRequest registrationModel = RegistrationRequest(
       fullname: fullname,
@@ -33,43 +38,27 @@ class RegistrationViewModel extends BaseViewModel {
       password: password,
     );
 
-    RegistrationResponse? registorResult =
-        await _registrationRepository.requestRegisterApi(registrationModel);
+    try {
+      RegistrationResponse? registorResult =
+          await _registrationRepository.requestRegisterApi(registrationModel);
 
-    busy(false);
-
-    if (!context.mounted) return;
-
-    if (registorResult != null) {
-      _handleSuccessfullRegistor(registorResult);
-      _navigateToLogin(context);
-    } else {
-      _showSnackBar(context, registrationFailedMessage);
+      if (registorResult != null) {
+        _handleSuccessfulRegister(registorResult);
+        _navigationService.replaceWith(Routes.loginView);
+      } else {
+        _snackbarService.showSnackbar(message: registrationFailedMessage);
+      }
+    } catch (e) {
+      _snackbarService.showSnackbar(
+          message: 'An error occurred: ${e.toString()}');
+    } finally {
+      setBusy(false);
     }
   }
 
-  void _handleSuccessfullRegistor(RegistrationResponse registerResponse) {
-    // Here you can handle the successful login
-    debugPrint('Logged in as: ${registerResponse.fullName}');
+  void _handleSuccessfulRegister(RegistrationResponse registerResponse) {
+    debugPrint('Registered as: ${registerResponse.fullName}');
     debugPrint('Token: ${registerResponse.token}');
-    // Add more handling as needed
-  }
-
-  void _showSnackBar(BuildContext context, String message) {
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
-    }
-  }
-
-  void _navigateToLogin(BuildContext context) {
-    if (context.mounted) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginView()),
-      );
-    }
   }
 
   @override

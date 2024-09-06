@@ -6,15 +6,19 @@ import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/theme/custom_theme.dart';
-import 'package:whats_app_clone/ui/views/setting/setting_viewmodel.dart';
+import 'package:whats_app_clone/theme/theme_modification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
-  runApp(const MainApp());
-  ChangeNotifierProvider(create: (_) => SettingViewModel());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeModification(),
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -23,7 +27,7 @@ class MainApp extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    final themeProvider = Provider.of<SettingViewModel>(context);
+    final themeProvider = Provider.of<ThemeModification>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.startupView,

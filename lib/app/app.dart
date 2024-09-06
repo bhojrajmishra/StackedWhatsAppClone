@@ -30,6 +30,7 @@ import 'package:whats_app_clone/services/registration_service.dart';
     LazySingleton(classType: LoginService),
     LazySingleton(classType: HomeService),
     LazySingleton(classType: RegistrationService),
+    LazySingleton(classType: SnackbarService),
 // @stacked-service
   ],
   bottomsheets: [

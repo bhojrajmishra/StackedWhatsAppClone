@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+import 'package:whats_app_clone/theme/theme_modification.dart';
 import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';
 
 import 'setting_viewmodel.dart';
@@ -13,6 +15,7 @@ class SettingView extends StackedView<SettingViewModel> {
     SettingViewModel viewModel,
     Widget? child,
   ) {
+    final themeProvider = context.watch<ThemeModification>();
     return Scaffold(
       appBar: const UserAppBar(title: 'Setting'),
       body: Padding(
@@ -24,16 +27,16 @@ class SettingView extends StackedView<SettingViewModel> {
             Row(
               children: [
                 Switch(
-                    value: viewModel.isDarkMode,
+                    value: context.watch<ThemeModification>().isDarkMode,
                     onChanged: (value) {
-                      viewModel.updateMode(darkMode: value);
+                      themeProvider.updateMode(darkMode: value);
                     }),
                 const SizedBox(
                   width: 20,
                 ),
-                Text(viewModel.isDarkMode ? "Dark Mode" : "Light Mode"),
+                Text(themeProvider.isDarkMode ? "Dark Mode" : "Light Mode"),
               ],
-            )
+            ),
           ],
         ),
       ),
