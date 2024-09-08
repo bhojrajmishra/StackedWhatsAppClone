@@ -66,7 +66,9 @@ class HomeView extends StackedView<HomeViewModel> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SettingView()),
+              MaterialPageRoute(
+                builder: (context) => const SettingView(),
+              ),
             );
           },
           backgroundColor: CustomTheme.primary(context),

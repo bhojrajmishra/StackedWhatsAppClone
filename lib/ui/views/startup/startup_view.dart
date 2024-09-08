@@ -22,18 +22,18 @@ class StartupView extends StackedView<StartupViewModel> {
           children: [
             Text(
               'WhatsApp Clone',
-              style: CustomTheme.labelMedium(context),
+              style: CustomTheme.displayLarge(context),
             ),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Loading ...', style: TextStyle(fontSize: 16)),
+                Text('Loading ...', style: CustomTheme.bodyLarge(context)),
                 horizontalSpaceSmall,
                 SizedBox(
                   width: 16,
                   height: 16,
                   child: CircularProgressIndicator(
-                    color: Colors.black,
+                    color: CustomTheme.primary(context),
                     strokeWidth: 6,
                   ),
                 )

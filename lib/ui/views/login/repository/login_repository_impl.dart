@@ -1,3 +1,4 @@
+import 'package:whats_app_clone/local_storage/local_storage_service.dart';
 import 'package:whats_app_clone/services/login_service.dart';
 import 'package:whats_app_clone/ui/views/login/model/login_request.dart';
 import 'package:whats_app_clone/ui/views/login/model/login_response.dart';
@@ -11,7 +12,7 @@ class LoginRepositoryImpl implements LoginRepository {
   }
 
   @override
-  Future<String?> getToken() async {
+  Future<String?> getToken(LocalStorageService localStorageService) async {
     return await loginService.getToken();
   }
 }
