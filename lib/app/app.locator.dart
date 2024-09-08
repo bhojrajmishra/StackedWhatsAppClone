@@ -12,6 +12,8 @@ import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_services/src/snackbar/snackbar_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
+import 'package:whats_app_clone/services/secure_storage_service.dart';
+
 import '../services/home_service.dart';
 import '../services/login_service.dart';
 import '../services/registration_service.dart';
@@ -35,4 +37,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => RegistrationService());
   locator.registerLazySingleton(() => SnackbarService());
   locator.registerLazySingleton(() => const FlutterSecureStorage());
+  locator.registerLazySingleton(() => SecureStorageService());
 }

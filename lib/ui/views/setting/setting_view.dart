@@ -20,23 +20,29 @@ class SettingView extends StackedView<SettingViewModel> {
       appBar: const UserAppBar(title: 'Setting'),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
           children: [
-            const Text("Theme Mode"),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Switch(
-                    value: context.watch<ThemeModification>().isDarkMode,
-                    onChanged: (value) {
-                      themeProvider.updateMode(darkMode: value);
-                    }),
-                const SizedBox(
-                  width: 20,
+                const Text("Theme Mode"),
+                Row(
+                  children: [
+                    Switch(
+                        value: context.watch<ThemeModification>().isDarkMode,
+                        onChanged: (value) {
+                          themeProvider.updateMode(darkMode: value);
+                        }),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(themeProvider.isDarkMode ? "Dark Mode" : "Light Mode"),
+                  ],
                 ),
-                Text(themeProvider.isDarkMode ? "Dark Mode" : "Light Mode"),
               ],
             ),
+            ElevatedButton(
+                onPressed: viewModel.deleteTOken, child: const Text("Logout"))
           ],
         ),
       ),

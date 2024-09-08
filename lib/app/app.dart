@@ -11,6 +11,7 @@ import 'package:whats_app_clone/ui/views/chat/chat_view.dart';
 import 'package:whats_app_clone/ui/views/setting/setting_view.dart';
 import 'package:whats_app_clone/ui/views/registration/registration_view.dart';
 import 'package:whats_app_clone/services/registration_service.dart';
+import 'package:whats_app_clone/services/secure_storage_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -31,6 +32,7 @@ import 'package:whats_app_clone/services/registration_service.dart';
     LazySingleton(classType: HomeService),
     LazySingleton(classType: RegistrationService),
     LazySingleton(classType: SnackbarService),
+    LazySingleton(classType: SecureStorageService),
 // @stacked-service
   ],
   bottomsheets: [
