@@ -19,6 +19,7 @@ class LoginViewModel extends BaseViewModel {
 
   Future<void> requestLoginApi() async {
     if (!formKey.currentState!.validate()) {
+      _snackbarService.showSnackbar(message: 'Please enter valid data');
       return;
     }
 
