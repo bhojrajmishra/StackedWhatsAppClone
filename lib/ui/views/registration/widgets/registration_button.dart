@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whats_app_clone/theme/custom_theme.dart';
 import 'package:whats_app_clone/ui/views/registration/registration_view.dart';
 
 class RegistrationButton extends StatelessWidget {
@@ -17,11 +18,14 @@ class RegistrationButton extends StatelessWidget {
               return const RegistrationView();
             }));
           },
-          child: const Text(
+          child: Text(
             "Register here!",
-            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: CustomTheme.primary(context),
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
+        )
       ],
     );
   }

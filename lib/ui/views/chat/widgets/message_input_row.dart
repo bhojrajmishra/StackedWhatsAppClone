@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whats_app_clone/theme/custom_theme.dart';
 
 /// A Custom MessageInputRow widget that display a row with textfield and a send button
 ///
@@ -41,7 +42,7 @@ class MessageInputRow extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 16, 83, 18),
+              backgroundColor: CustomTheme.primary(context),
               onPressed: () {},
               shape: const CircleBorder(),
               child: const Icon(Icons.mic_rounded, color: Colors.white),

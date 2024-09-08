@@ -43,7 +43,8 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: TextStyle(
-            color: foregroundColor ?? Colors.white), // Default color is white
+            color: foregroundColor ??
+                CustomTheme.inversePrimary(context)), // Default color is white
       ),
       backgroundColor: backgroundColor ??
           CustomTheme.primary(context), // Uses primary color if not provided

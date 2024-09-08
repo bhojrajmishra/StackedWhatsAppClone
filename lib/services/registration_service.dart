@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:whats_app_clone/network/dio_client.dart';
 import 'package:whats_app_clone/ui/views/registration/model/registration_request.dart';
 import 'package:whats_app_clone/ui/views/registration/model/registration_response.dart';
-import 'package:whats_app_clone/utils/api_path.dart';
+import 'package:whats_app_clone/base/utils/api_path.dart';
 
 class RegistrationService {
   static Future<RegistrationResponse?> requestRegisterApi(
@@ -14,7 +15,7 @@ class RegistrationService {
     };
     debugPrint("Payload: $payload");
     try {
-      Response response = await Dio().post(
+      Response response = await DioClient.sharedDio.post(
         ApiPath.registerUrl,
         data: payload,
         options: Options(

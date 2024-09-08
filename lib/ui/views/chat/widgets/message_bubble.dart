@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whats_app_clone/theme/custom_theme.dart';
 
 /// A custom MessageBubble widget to display the message in the chat screen.
 ///
@@ -36,7 +37,9 @@ class MessageBubble extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           // Set the background color and border radius based on the user message status.
-          color: isUserMessage ? Colors.green : Colors.grey[300],
+          color: isUserMessage
+              ? CustomTheme.primary(context)
+              : CustomTheme.secondary(context),
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(12),
             topRight: const Radius.circular(12),
@@ -50,7 +53,9 @@ class MessageBubble extends StatelessWidget {
           message,
           style: TextStyle(
             // Set the text color based on the user message status.
-            color: isUserMessage ? Colors.white : Colors.black87,
+            color: isUserMessage
+                ? CustomTheme.inversePrimary(context)
+                : CustomTheme.inversePrimary(context),
           ),
         ),
       ),

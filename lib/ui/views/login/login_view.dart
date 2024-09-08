@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:whats_app_clone/ui/views/registration/widgets/registration_button.dart';
 import 'package:whats_app_clone/ui/widgets/custom_button.dart';
 import 'package:whats_app_clone/ui/widgets/custom_text_form_field.dart';
-import 'package:whats_app_clone/utils/validator.dart';
+import 'package:whats_app_clone/base/utils/validator.dart';
 import 'login_viewmodel.dart';
 
 class LoginView extends StackedView<LoginViewModel> {

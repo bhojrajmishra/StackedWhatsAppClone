@@ -3,24 +3,40 @@ import 'package:flutter/material.dart';
 /// A custom theme class that defines the light and dark themes for the application.
 ///
 /// This class provides two static methods, [lightTheme] and [darkTheme], which return
-/// [ThemeData] objects configured with specific color schemes for light and dark modes.
+/// [ThemeData] objects configured with specific color schemes and text themes for light and dark modes.
 class CustomTheme {
   /// Defines the light theme of the app.
-  ///
-  /// This method returns a [ThemeData] object configured with a [ColorScheme.light].
-  /// The primary color is set to a shade of green, while the secondary and surface colors are set to white
-  ///
-  /// The [inversePrimary] color is also set to white, which is used when contrasting with
-  /// a primary color that requires inversion in some UI elements.
   static ThemeData lightTheme() {
     return ThemeData(
       colorScheme: const ColorScheme.light(
-        surface: Colors.white, // Background surface color for components
-        primary: Color.fromARGB(
-            255, 16, 83, 18), // Primary color used in the app's theme
-        secondary: Colors.white, // Secondary color, often used for accents
-        inversePrimary:
-            Colors.white, // Inverse of the primary color for contrast
+        surface: Colors.white,
+        primary: Color.fromARGB(255, 16, 83, 18),
+        secondary: Colors.grey,
+        inversePrimary: Colors.white,
+      ),
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+        bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
+        labelMedium: TextStyle(fontSize: 14, color: Colors.grey),
+      ),
+    );
+  }
+
+  /// Defines the dark theme of the app.
+  static ThemeData darkTheme() {
+    return ThemeData(
+      colorScheme: const ColorScheme.dark(
+        surface: Colors.black,
+        primary: Color.fromARGB(255, 16, 83, 18),
+        secondary: Colors.white,
+        inversePrimary: Colors.black,
+      ),
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+        bodyLarge: TextStyle(fontSize: 16, color: Colors.white70),
+        labelMedium: TextStyle(fontSize: 14, color: Colors.grey),
       ),
     );
   }
@@ -41,23 +57,18 @@ class CustomTheme {
     return Theme.of(context).colorScheme.inversePrimary;
   }
 
-  /// Defines the dark theme of the app.
-  ///
-  /// This method returns a [ThemeData] object configured with a [ColorScheme.dark].
-  /// The primary color remains the same as in the light theme, while the surface color
-  /// set to black to suit dark mode. The secondary color is white, and the
-  /// [inversePrimary] color is set to a light grey, providing a subtle contrast.
-  static ThemeData darkTheme() {
-    return ThemeData(
-      colorScheme: ColorScheme.dark(
-        surface: Colors
-            .black, // Background surface color for components in dark mode
-        primary: const Color.fromARGB(
-            255, 16, 83, 18), // Primary color remains consistent
-        secondary: Colors.white, // Secondary color for accents in dark mode
-        inversePrimary:
-            Colors.grey[400], // Light grey color for inverted elements
-      ),
-    );
+  /// Returns the TextStyle for displayLarge text.
+  static TextStyle? displayLarge(BuildContext context) {
+    return Theme.of(context).textTheme.displayLarge;
+  }
+
+  /// Returns the TextStyle for bodyLarge text.
+  static TextStyle? bodyLarge(BuildContext context) {
+    return Theme.of(context).textTheme.bodyLarge;
+  }
+
+  /// Returns the TextStyle for labelMedium text.
+  static TextStyle? labelMedium(BuildContext context) {
+    return Theme.of(context).textTheme.labelMedium;
   }
 }

@@ -4,15 +4,14 @@ import 'package:whats_app_clone/ui/views/login/model/login_response.dart';
 import 'package:whats_app_clone/ui/views/login/repository/login_repository.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
+  final loginService = LoginService();
   @override
   Future<LoginResponse?> requestLoginApi(LoginRequest loginRequest) async {
-    final loginService = LoginService();
     return await loginService.requestLoginApi(loginRequest);
   }
 
   @override
   Future<String?> getToken() async {
-    final loginService = LoginService();
     return await loginService.getToken();
   }
 }

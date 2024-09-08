@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:whats_app_clone/model/user_list_model.dart';
-import 'package:whats_app_clone/utils/api_path.dart';
+import 'package:whats_app_clone/base/utils/api_path.dart';
+import 'package:whats_app_clone/network/dio_client.dart';
 
 class HomeService {
-  static final Dio _dio = Dio();
-
   static Future<List<UserListModel>> fetchUserList() async {
     try {
-      Response response = await _dio.get(ApiPath.userListUrl);
+      Response response = await DioClient.sharedDio.get(ApiPath.userListUrl);
       final List<dynamic> data = response.data['data'];
       return data.map((json) => UserListModel.fromJson(json)).toList();
     } catch (e) {

@@ -2,13 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:whats_app_clone/network/dio_client.dart';
 import 'package:whats_app_clone/ui/views/login/model/login_request.dart';
 import 'package:whats_app_clone/ui/views/login/model/login_response.dart';
-import 'package:whats_app_clone/utils/api_path.dart';
+import 'package:whats_app_clone/base/utils/api_path.dart';
 
 class LoginService {
-  final Dio _dio = Dio();
-
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   Future<LoginResponse?> requestLoginApi(LoginRequest loginRequest) async {
@@ -17,7 +16,7 @@ class LoginService {
       'password': loginRequest.password,
     };
     try {
-      Response response = await _dio.post(
+      Response response = await DioClient.sharedDio.post(
         ApiPath.loginUrl,
         data: payload,
       );

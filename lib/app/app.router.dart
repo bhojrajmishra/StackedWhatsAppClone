@@ -88,9 +88,7 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i5.ChatView: (data) {
-      final args = data.getArgs<ChatViewArguments>(
-        orElse: () => const ChatViewArguments(),
-      );
+      final args = data.getArgs<ChatViewArguments>(nullOk: false);
       return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.ChatView(key: args.key, title: args.title),
         settings: data,
@@ -120,7 +118,7 @@ class StackedRouter extends _i1.RouterBase {
 class ChatViewArguments {
   const ChatViewArguments({
     this.key,
-    this.title = "",
+    required this.title,
   });
 
   final _i8.Key? key;
@@ -189,7 +187,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
 
   Future<dynamic> navigateToChatView({
     _i8.Key? key,
-    String title = "",
+    required String title,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -276,7 +274,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
 
   Future<dynamic> replaceWithChatView({
     _i8.Key? key,
-    String title = "",
+    required String title,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
