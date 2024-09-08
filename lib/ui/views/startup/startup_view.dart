@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
+import 'package:whats_app_clone/theme/custom_theme.dart';
 import 'package:whats_app_clone/ui/common/ui_helpers.dart';
 
 import 'startup_viewmodel.dart';
@@ -14,16 +15,16 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'WhatsApp Clone',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+              style: CustomTheme.labelMedium(context),
             ),
-            Row(
+            const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text('Loading ...', style: TextStyle(fontSize: 16)),

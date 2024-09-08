@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whats_app_clone/model/user_list_model.dart';
+import 'package:whats_app_clone/theme/custom_theme.dart';
 
 /// ListTileTitle is a StatelessWidget that is used to display the title widget of ListTile.
 ///
@@ -13,7 +14,6 @@ class ListTileTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(chats[index].email,
-        style: const TextStyle(fontWeight: FontWeight.bold));
+    return Text(chats[index].email, style: CustomTheme.labelMedium(context));
   }
 }

@@ -18,7 +18,7 @@ class CustomTheme {
         displayLarge: TextStyle(
             fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
         bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
-        labelMedium: TextStyle(fontSize: 14, color: Colors.grey),
+        labelMedium: TextStyle(fontSize: 14, color: Colors.black),
       ),
     );
   }
@@ -57,17 +57,14 @@ class CustomTheme {
     return Theme.of(context).colorScheme.inversePrimary;
   }
 
-  /// Returns the TextStyle for displayLarge text.
   static TextStyle? displayLarge(BuildContext context) {
     return Theme.of(context).textTheme.displayLarge;
   }
 
-  /// Returns the TextStyle for bodyLarge text.
   static TextStyle? bodyLarge(BuildContext context) {
     return Theme.of(context).textTheme.bodyLarge;
   }
 
-  /// Returns the TextStyle for labelMedium text.
   static TextStyle? labelMedium(BuildContext context) {
     return Theme.of(context).textTheme.labelMedium;
   }

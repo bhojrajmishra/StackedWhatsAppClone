@@ -14,8 +14,8 @@ class StartupViewModel extends BaseViewModel {
     await Future.delayed(const Duration(seconds: 1));
     final gettoken = await _storage.read(key: 'token');
     if (gettoken != null) {
-      _navigationService.navigateToHomeView();
-      debugPrint('token: $gettoken');
+      _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+      debugPrint('accesstoken: $gettoken');
     } else {
       _navigationService.navigateToLoginView();
     }
