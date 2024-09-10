@@ -6,7 +6,6 @@ import 'package:whats_app_clone/ui/views/home/repository/user_list_repository_im
 
 class HomeViewModel extends BaseViewModel with Initialisable {
   var user = FirebaseAuth.instance.currentUser;
-
   @override
   Future<void> initialise() async {
     await fetchUserList();
