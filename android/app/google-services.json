@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1000537586663",
+    "project_id": "whatsappclone-35905",
+    "storage_bucket": "whatsappclone-35905.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000537586663:android:e2a0b00c2c5e1ed40a9b42",
+        "android_client_info": {
+          "package_name": "com.whatsapp.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL85e5IWxRmnsxH-WAd77JgJar1WUIluA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,7 +14,7 @@ import 'package:whats_app_clone/services/home_service.dart' as _i10;
 // import 'package:whats_app_clone/ui/views/login/service/login_service.dart'
 //     as _i7;
 // import 'package:whats_app_clone/services/registration_service.dart' as _i11;
-import 'package:whats_app_clone/services/secure_storage_service.dart' as _i12;
+// import 'package:whats_app_clone/services/secure_storage_service.dart' as _i12;
 // import 'package:whats_app_clone/ui/views/login/model/login_request.dart' as _i9;
 // import 'package:whats_app_clone/ui/views/login/model/login_response.dart'
 //     as _i8;
@@ -720,5 +720,5 @@ class MockHomeService extends _i1.Mock implements _i10.HomeService {}
 /// A class which mocks [SecureStorageService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSecureStorageService extends _i1.Mock
-    implements _i12.SecureStorageService {}
+// class MockSecureStorageService extends _i1.Mock
+//     implements _i12.SecureStorageService {}
