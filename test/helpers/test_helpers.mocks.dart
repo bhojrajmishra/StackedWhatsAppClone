@@ -11,12 +11,13 @@ import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 import 'package:whats_app_clone/services/home_service.dart' as _i10;
-import 'package:whats_app_clone/services/login_service.dart' as _i7;
-import 'package:whats_app_clone/services/registration_service.dart' as _i11;
+// import 'package:whats_app_clone/ui/views/login/service/login_service.dart'
+//     as _i7;
+// import 'package:whats_app_clone/services/registration_service.dart' as _i11;
 import 'package:whats_app_clone/services/secure_storage_service.dart' as _i12;
-import 'package:whats_app_clone/ui/views/login/model/login_request.dart' as _i9;
-import 'package:whats_app_clone/ui/views/login/model/login_response.dart'
-    as _i8;
+// import 'package:whats_app_clone/ui/views/login/model/login_request.dart' as _i9;
+// import 'package:whats_app_clone/ui/views/login/model/login_response.dart'
+//     as _i8;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -681,29 +682,29 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 /// A class which mocks [LoginService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginService extends _i1.Mock implements _i7.LoginService {
-  @override
-  _i5.Future<_i8.LoginResponse?> requestLoginApi(
-          _i9.LoginRequest? loginRequest) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #requestLoginApi,
-          [loginRequest],
-        ),
-        returnValue: _i5.Future<_i8.LoginResponse?>.value(),
-        returnValueForMissingStub: _i5.Future<_i8.LoginResponse?>.value(),
-      ) as _i5.Future<_i8.LoginResponse?>);
+// class MockLoginService extends _i1.Mock implements _i7.LoginService {
+//   @override
+//   _i5.Future<_i8.LoginResponse?> requestLoginApi(
+//           _i9.LoginRequest? loginRequest) =>
+//       (super.noSuchMethod(
+//         Invocation.method(
+//           #requestLoginApi,
+//           [loginRequest],
+//         ),
+//         returnValue: _i5.Future<_i8.LoginResponse?>.value(),
+//         returnValueForMissingStub: _i5.Future<_i8.LoginResponse?>.value(),
+//       ) as _i5.Future<_i8.LoginResponse?>);
 
-  @override
-  _i5.Future<String?> getToken() => (super.noSuchMethod(
-        Invocation.method(
-          #getToken,
-          [],
-        ),
-        returnValue: _i5.Future<String?>.value(),
-        returnValueForMissingStub: _i5.Future<String?>.value(),
-      ) as _i5.Future<String?>);
-}
+//   @override
+//   _i5.Future<String?> getToken() => (super.noSuchMethod(
+//         Invocation.method(
+//           #getToken,
+//           [],
+//         ),
+//         returnValue: _i5.Future<String?>.value(),
+//         returnValueForMissingStub: _i5.Future<String?>.value(),
+//       ) as _i5.Future<String?>);
+// }
 
 /// A class which mocks [HomeService].
 ///
@@ -713,8 +714,8 @@ class MockHomeService extends _i1.Mock implements _i10.HomeService {}
 /// A class which mocks [RegistrationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRegistrationService extends _i1.Mock
-    implements _i11.RegistrationService {}
+// class MockRegistrationService extends _i1.Mock
+//     implements _i11.RegistrationService {}
 
 /// A class which mocks [SecureStorageService].
 ///

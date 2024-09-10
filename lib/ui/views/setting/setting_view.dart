@@ -42,7 +42,7 @@ class SettingView extends StackedView<SettingViewModel> {
               ],
             ),
             ElevatedButton(
-                onPressed: viewModel.deleteTOken, child: const Text("Logout"))
+                onPressed: viewModel.logout, child: const Text("Logout"))
           ],
         ),
       ),

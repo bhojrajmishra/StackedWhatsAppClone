@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/local_storage/storage_service.dart';
@@ -10,7 +9,6 @@ import 'package:whats_app_clone/ui/views/login/model/login_response.dart';
 import 'package:whats_app_clone/base/utils/api_path.dart';
 
 class LoginService {
-  final _navigationService = locator<NavigationService>();
   final StorageService _storageService = locator<StorageService>();
 
   Future<LoginResponse?> requestLoginApi(LoginRequest loginRequest) async {
@@ -27,7 +25,7 @@ class LoginService {
       if (response.statusCode == 200) {
         final data = response.data;
         await _storageService.write(key: 'token', value: data['token']);
-        _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+        (Routes.homeView);
         debugPrint('token: ${data['token']}');
         debugPrint('username: ${loginRequest.email}');
         debugPrint('password: ${loginRequest.password}');
