@@ -14,27 +14,27 @@ class RegistrationService {
       'password': registrationRequest.password,
     };
     debugPrint("Payload: $payload");
-    try {
-      Response response = await DioClient.sharedDio.post(
-        ApiPath.registerUrl,
-        data: payload,
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
+    // try {
+    //   Response response = await DioClient.sharedDio.post(
+    //     ApiPath.registerUrl,
+    //     data: payload,
+    //     options: Options(
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     ),
+    //   );
 
-      if (response.statusCode == 200) {
-        final data = response.data;
-        return RegistrationResponse.fromJson(data);
-      } else {
-        debugPrint('Registration failed with status: ${response.statusCode}');
-        return null;
-      }
-    } catch (e) {
-      debugPrint('Error: $e');
-      return null;
-    }
+    //   if (response.statusCode == 200) {
+    //     final data = response.data;
+    //     return RegistrationResponse.fromJson(data);
+    //   } else {
+    //     debugPrint('Registration failed with status: ${response.statusCode}');
+    //     return null;
+    //   }
+    // } catch (e) {
+    //   debugPrint('Error: $e');
+    //   return null;
+    // }
   }
 }

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1000537586663:android:e2a0b00c2c5e1ed40a9b42",
         "android_client_info": {
-          "package_name": "com.whatsapp.app"
+          "package_name": "com.example.whats_app_clone"
         }
       },
       "oauth_client": [],

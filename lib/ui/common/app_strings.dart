@@ -4,3 +4,4 @@ const String ksHomeBottomSheetDescription =
 const String fillAllFieldsMessage = 'please fill all the fields';
 const String registrationFailedMessage = 'registration failed';
 const String loginFailedMessage = 'login failed';
+const String registrationSuccessMessage = 'registration success';

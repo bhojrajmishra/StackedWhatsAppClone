@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -20,52 +21,76 @@ class RegistrationViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
 
-  Future<void> requestRegisterApi() async {
-    final fullname = nameController.text;
-    final email = emailController.text;
-    final password = passwordController.text;
-
-    if (!formsKey.currentState!.validate()) {
-      _snackbarService.showSnackbar(message: fillAllFieldsMessage);
-      return;
-    }
-
-    setBusy(true);
-
-    RegistrationRequest registrationModel = RegistrationRequest(
-      fullname: fullname,
-      email: email,
-      password: password,
-    );
-
+  Future<void> createAccount() async {
     try {
-      RegistrationResponse? registorResult =
-          await _registrationRepository.requestRegisterApi(registrationModel);
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      _navigationService.replaceWith(Routes.loginView);
 
-      if (registorResult != null) {
-        _handleSuccessfulRegister(registorResult);
-        _navigationService.replaceWith(Routes.loginView);
-      } else {
-        _snackbarService.showSnackbar(message: registrationFailedMessage);
+      _snackbarService.showSnackbar(message: registrationSuccessMessage);
+
+      if (!formsKey.currentState!.validate()) {
+        _snackbarService.showSnackbar(message: fillAllFieldsMessage);
+        return;
       }
     } catch (e) {
-      _snackbarService.showSnackbar(
-          message: 'An error occurred: ${e.toString()}');
-    } finally {
-      setBusy(false);
+      _snackbarService.showSnackbar(message: registrationFailedMessage);
+      debugPrint('An error occurred: ${e.toString()}');
     }
   }
 
-  void _handleSuccessfulRegister(RegistrationResponse registerResponse) {
-    debugPrint('Registered as: ${registerResponse.fullName}');
-    debugPrint('Token: ${registerResponse.token}');
-  }
+  // Future<void> requestRegisterApi() async {
+  //   final fullname = nameController.text;
+  //   final email = emailController.text;
+  //   final password = passwordController.text;
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    nameController.dispose();
-    super.dispose();
-  }
+  //   await FirebaseAuth.instance
+  //       .createUserWithEmailAndPassword(email: email, password: password);
+
+  //   debugPrint(
+  //       'Registration successfully with email and password  : $email $password');
+
+  //   if (!formsKey.currentState!.validate()) {
+  //     _snackbarService.showSnackbar(message: fillAllFieldsMessage);
+  //     return;
+  //   }
+
+  //   setBusy(true);
+
+  //   RegistrationRequest registrationModel = RegistrationRequest(
+  //     fullname: fullname,
+  //     email: email,
+  //     password: password,
+  //   );
+
+  //   try {
+  //     RegistrationResponse? registorResult =
+  //         await _registrationRepository.requestRegisterApi(registrationModel);
+
+  //     if (registorResult != null) {
+  //       _handleSuccessfulRegister(registorResult);
+  //       _navigationService.replaceWith(Routes.loginView);
+  //     } else {
+  //       _snackbarService.showSnackbar(message: registrationFailedMessage);
+  //     }
+  //   } catch (e) {
+  //     _snackbarService.showSnackbar(
+  //         message: 'An error occurred: ${e.toString()}');
+  //   } finally {
+  //     setBusy(false);
+  //   }
+  // }
+
+  // void _handleSuccessfulRegister(RegistrationResponse registerResponse) {
+  //   debugPrint('Registered as: ${registerResponse.fullName}');
+  //   debugPrint('Token: ${registerResponse.token}');
+  // }
+
+  // @override
+  // void dispose() {
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  //   nameController.dispose();
+  //   super.dispose();
+  // }
 }

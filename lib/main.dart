@@ -11,11 +11,10 @@ import 'package:whats_app_clone/theme/custom_theme.dart';
 import 'package:whats_app_clone/theme/theme_modification.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();

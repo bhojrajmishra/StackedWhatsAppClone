@@ -11,7 +11,6 @@ import 'package:whats_app_clone/ui/views/login/repository/login_repository_impl.
 class LoginViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
