@@ -66,7 +66,7 @@ class RegistrationView extends StackedView<RegistrationViewModel> {
                       CustomButton(
                         text: "Register",
                         onPressed: () {
-                          viewModel.createAccount();
+                          viewModel.requestRegisterApi();
                         },
                       ),
                     ],

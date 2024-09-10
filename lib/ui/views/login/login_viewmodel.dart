@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
+import 'package:whats_app_clone/ui/common/app_strings.dart';
 import 'package:whats_app_clone/ui/views/login/model/login_request.dart';
 import 'package:whats_app_clone/ui/views/login/model/login_response.dart';
 import 'package:whats_app_clone/ui/views/login/repository/login_repository.dart';
@@ -17,36 +19,55 @@ class LoginViewModel extends BaseViewModel {
   final LoginRepository _loginRepository = LoginRepositoryImpl();
 
   Future<void> requestLoginApi() async {
-    if (!formKey.currentState!.validate()) {
-      _snackbarService.showSnackbar(message: 'Please enter valid data');
-      return;
-    }
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
 
-    setBusy(true);
+      _snackbarService.showSnackbar(message: loginSuccessMessage);
 
-    LoginRequest loginRequest = LoginRequest(
-      email: emailController.text,
-      password: passwordController.text,
-    );
-    LoginResponse? loginResult =
-        await _loginRepository.requestLoginApi(loginRequest);
-
-    setBusy(false);
-    if (loginResult != null) {
-      _navigateToHome();
-    } else {
-      _snackbarService.showSnackbar(message: 'Login failed');
+      if (!formKey.currentState!.validate()) {
+        _snackbarService.showSnackbar(message: loginFailedMessage);
+        return;
+      }
+    } catch (e) {
+      _snackbarService.showSnackbar(message: registrationFailedMessage);
+      debugPrint('An error occurred: ${e.toString()}');
     }
   }
 
-  Future<void> checkLoginStatus() async {
-    String? token = await _loginRepository.getToken();
-    if (token != null) {
-      _navigateToHome();
-    }
-  }
+  // Future<void> requestLoginApi() async {
+  //   if (!formKey.currentState!.validate()) {
+  //     _snackbarService.showSnackbar(message: 'Please enter valid data');
+  //     return;
+  //   }
 
-  void _navigateToHome() {
-    _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
-  }
+  //   setBusy(true);
+
+  //   LoginRequest loginRequest = LoginRequest(
+  //     email: emailController.text,
+  //     password: passwordController.text,
+  //   );
+  //   LoginResponse? loginResult =
+  //       await _loginRepository.requestLoginApi(loginRequest);
+
+  //   _snackbarService.showSnackbar(message: 'User logged in');
+  //   setBusy(false);
+  //   if (loginResult != null) {
+  //     _navigateToHome();
+  //   } else {
+  //     _snackbarService.showSnackbar(message: 'Login failed');
+  //   }
+  // }
+
+  // Future<void> checkLoginStatus() async {
+  //   String? token = await _loginRepository.getToken();
+  //   if (token != null) {
+  //     _navigateToHome();
+  //   }
+  // }
+
+  // void _navigateToHome() {
+  //   _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+  // }
 }

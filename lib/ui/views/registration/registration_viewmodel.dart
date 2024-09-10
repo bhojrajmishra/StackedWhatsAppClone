@@ -21,7 +21,7 @@ class RegistrationViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
 
-  Future<void> createAccount() async {
+  Future<void> requestRegisterApi() async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);

@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dio/dio.dart';
@@ -9,25 +11,14 @@ import 'package:stacked_services/stacked_services.dart';
 
 class SettingViewModel extends BaseViewModel {
   final StorageService _storageService = locator<StorageService>();
+  final SnackbarService snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future<void> logout() async {
-    try {
-      Response response = await DioClient.sharedDio.post(
-        'https://tbe.thuprai.com/v1/user/logout/',
-      );
-      debugPrint("send token to thuprai: ${response.statusCode}");
-
-      if (response.statusCode == 200) {
-        await _storageService.delete(key: 'token');
-        debugPrint('Logout successful and token send');
-
-        _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
-      } else {
-        debugPrint('Failed to log out: ${response.statusCode}');
-      }
-    } catch (e) {
-      debugPrint('Logout failed: $e');
-    }
+    await FirebaseAuth.instance.signOut();
+    debugPrint('User logged out');
+    snackbarService.showSnackbar(message: 'User logged out');
+    // await _storageService.delete(key: 'token');
+    _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
   }
 }

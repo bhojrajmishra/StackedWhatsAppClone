@@ -20,7 +20,7 @@ class HomeView extends StackedView<HomeViewModel> {
       length: 3,
       child: Scaffold(
         appBar: UserAppBar(
-          title: "WhatsApp",
+          title: (viewModel.user?.email ?? "WhatsApp"),
           actions: [
             IconButton(
               icon: const Icon(Icons.search),
