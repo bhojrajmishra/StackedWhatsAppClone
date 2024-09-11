@@ -24,26 +24,28 @@ class LoginView extends StackedView<LoginViewModel> {
             const SizedBox(height: 100, width: 100),
             Form(
               key: viewModel.formKey,
-              child: CustomTextFormField(
-                controller: viewModel.emailController,
-                labelText: "Email",
-                obscureText: false,
-                validator: (value) => Validator.emailValidator(value),
+              child: Column(
+                children: [
+                  CustomTextFormField(
+                    controller: viewModel.emailController,
+                    labelText: "Email",
+                    obscureText: false,
+                    validator: (value) => Validator.emailValidator(value),
+                  ),
+                  const SizedBox(height: 23),
+                  CustomTextFormField(
+                    controller: viewModel.passwordController,
+                    labelText: "Password",
+                    obscureText: true,
+                    validator: (value) => Validator.passwordValidator(value),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 23),
-            CustomTextFormField(
-              controller: viewModel.passwordController,
-              labelText: "Password",
-              obscureText: true,
-              validator: (value) => Validator.passwordValidator(value),
             ),
             const SizedBox(height: 23),
             CustomButton(
               text: viewModel.isBusy ? "Loading..." : "Login",
-              onPressed: () {
-                viewModel.requestLoginApi();
-              },
+              onPressed: viewModel.requestLoginApi,
             ),
             const SizedBox(height: 20),
             const RegistrationButton(),

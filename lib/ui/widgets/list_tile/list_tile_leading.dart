@@ -12,7 +12,7 @@ class ListTileLeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      backgroundImage: NetworkImage(chats[index].avatar),
-    );
+        //  backgroundImage: NetworkImage(chats[index].avatar),
+        );
   }
 }

@@ -27,9 +27,9 @@ import 'package:whats_app_clone/ui/views/registration/registration_view.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    LazySingleton(classType: LoginService),
+    // LazySingleton(classType: LoginService),
     LazySingleton(classType: HomeService),
-    LazySingleton(classType: RegistrationService),
+    // LazySingleton(classType: RegistrationService),
     LazySingleton(classType: SnackbarService),
 // @stacked-service
   ],

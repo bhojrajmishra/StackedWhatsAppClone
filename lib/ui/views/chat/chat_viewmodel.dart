@@ -1,21 +1,48 @@
+import 'dart:isolate';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class ChatViewModel extends BaseViewModel {
+class ChatViewModel extends BaseViewModel with Initialisable {
+  @override
+  Future<void> initialise() async {
+    await fetchMessages();
+  }
+
   final TextEditingController controller = TextEditingController();
   final List<String> messages = [];
+  FirebaseFirestore db = FirebaseFirestore.instance;
   bool isUserMessage = true;
-  void sendMessage() {
-    /// If the controller text is not empty then add the message to the list and clear the controller and change the isUserMessage to false
+
+  Future<void> sendMessage() async {
     if (controller.text.isNotEmpty) {
-      //add the message to the list
       messages.add(controller.text);
-      //clear the controller
-      controller.clear();
-      //change the isUserMessage to false
-      isUserMessage = !isUserMessage;
-      //notifyListeners to rebuild the UI
       notifyListeners();
+      await db.collection('messages').add({
+        'message': controller.text,
+        'isUserMessage': isUserMessage,
+        'timestamp': DateTime.now(),
+      });
+      controller.clear();
     }
+  }
+
+  Future<void> fetchMessages() async {
+    final snapshot = await db.collection('messages').get();
+    messages.clear();
+    if (snapshot.docs.isEmpty) {
+      return;
+    }
+    for (final doc in snapshot.docs) {
+      messages.add(doc['message']);
+    }
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/theme/theme_modification.dart';
 import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';
 
@@ -42,7 +43,24 @@ class SettingView extends StackedView<SettingViewModel> {
               ],
             ),
             ElevatedButton(
-                onPressed: viewModel.logout, child: const Text("Logout"))
+                onPressed: viewModel.logout, child: const Text("Logout")),
+            const SizedBox(
+              height: 20,
+            ),
+
+            Column(
+              children: [
+                Column(
+                  children: [
+                    Text("Full Name: ${viewModel.userData?['name'] ?? ''}"),
+                    Text("Email: ${viewModel.userData?['email'] ?? ''}"),
+                  ],
+                ),
+                ElevatedButton(onPressed: () {}, child: Text("delete profile"))
+              ],
+            )
+
+            // Display user data
           ],
         ),
       ),

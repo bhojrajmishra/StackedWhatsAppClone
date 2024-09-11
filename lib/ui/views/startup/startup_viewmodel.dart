@@ -6,17 +6,23 @@ import 'package:whats_app_clone/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends BaseViewModel {
-  var user = FirebaseAuth.instance.currentUser;
-
+  final _auth = FirebaseAuth.instance;
   final _navigationService = locator<NavigationService>();
 
   Future runStartupLogic() async {
-    await Future.delayed(const Duration(seconds: 3));
+    try {
+      await Future.delayed(
+          const Duration(seconds: 3)); // If needed for splash screen
 
-    if (user == null) {
-      _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
-    } else {
-      _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+      _auth.authStateChanges().listen((User? user) {
+        if (user == null) {
+          _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
+        } else {
+          _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+        }
+      });
+    } catch (e) {
+      debugPrint('Error in startup logic: $e');
     }
   }
 }
