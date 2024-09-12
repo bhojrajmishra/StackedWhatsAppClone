@@ -1,6 +1,5 @@
-import 'dart:isolate';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -13,6 +12,7 @@ class ChatViewModel extends BaseViewModel with Initialisable {
   final TextEditingController controller = TextEditingController();
   final List<String> messages = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
+  User? user = FirebaseAuth.instance.currentUser;
   bool isUserMessage = true;
 
   Future<void> sendMessage() async {

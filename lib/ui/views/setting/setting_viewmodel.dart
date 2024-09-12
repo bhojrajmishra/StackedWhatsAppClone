@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:dio/dio.dart';
-import 'package:whats_app_clone/local_storage/storage_service.dart';
-import 'package:whats_app_clone/network/dio_client.dart';
 import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -44,23 +41,21 @@ class SettingViewModel extends BaseViewModel with Initialisable {
     }
   }
 
-  Future<void> updateProfile({
+  Future<void> updateUserData({
     required String name,
     required String email,
-    required String password,
   }) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await user.verifyBeforeUpdateEmail(email);
-        await user.updatePassword(password);
         await db.collection('users').doc(user.uid).update({
           'name': name,
           'email': email,
-          'password': password,
         });
-        snackbarService.showSnackbar(message: 'Profile updated successfully');
-        notifyListeners();
+        snackbarService.showSnackbar(
+            message: 'User data updated successfully',
+            duration: const Duration(seconds: 2));
+        await getUserData();
       }
     } catch (e) {
       debugPrint('Error: $e');
@@ -70,7 +65,6 @@ class SettingViewModel extends BaseViewModel with Initialisable {
   Future<void> deleteAccount() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
-
       if (user != null) {
         await user.delete();
         await db.collection('users').doc(user.uid).delete();

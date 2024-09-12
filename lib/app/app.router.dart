@@ -96,7 +96,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i6.SettingView: (data) {
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i6.SettingView(),
+        builder: (context) => _i6.SettingView(),
         settings: data,
       );
     },

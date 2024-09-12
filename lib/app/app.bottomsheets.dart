@@ -11,6 +11,7 @@ import '../ui/bottom_sheets/notice/notice_sheet.dart';
 
 enum BottomSheetType {
   notice,
+  floating,
 }
 
 void setupBottomSheetUi() {

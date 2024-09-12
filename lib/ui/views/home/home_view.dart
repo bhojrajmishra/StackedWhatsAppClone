@@ -20,7 +20,7 @@ class HomeView extends StackedView<HomeViewModel> {
       length: 3,
       child: Scaffold(
         appBar: UserAppBar(
-          title: (viewModel.user?.email ?? "WhatsApp"),
+          title: ('Hello ${viewModel.user?.email?.split('@').first}'),
           actions: [
             IconButton(
               icon: const Icon(Icons.search),
@@ -67,7 +67,7 @@ class HomeView extends StackedView<HomeViewModel> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const SettingView(),
+                builder: (context) => SettingView(),
               ),
             );
           },

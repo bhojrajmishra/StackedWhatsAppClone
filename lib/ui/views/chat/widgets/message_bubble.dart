@@ -16,6 +16,7 @@ import 'package:whats_app_clone/theme/custom_theme.dart';
 class MessageBubble extends StatelessWidget {
   // The message text to display in the bubble.
   final String message;
+  final int? timestamp;
   // A boolean value to determine if the message is sent by the user or received from another user.
   final bool isUserMessage;
 
@@ -23,6 +24,7 @@ class MessageBubble extends StatelessWidget {
   const MessageBubble({
     required this.message,
     required this.isUserMessage,
+    this.timestamp,
     super.key,
   });
 
@@ -50,7 +52,7 @@ class MessageBubble extends StatelessWidget {
           ),
         ),
         child: Text(
-          message,
+          message + (timestamp != null ? ' - $timestamp' : ''),
           style: TextStyle(
             // Set the text color based on the user message status.
             color: isUserMessage

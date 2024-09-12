@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:whats_app_clone/app/app.bottomsheets.dart';
+import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/theme/theme_modification.dart';
+import 'package:whats_app_clone/ui/views/setting/widgets/bottom_sheet.dart';
 import 'package:whats_app_clone/ui/widgets/user_app_bar.dart';
 
 import 'setting_viewmodel.dart';
@@ -47,7 +50,6 @@ class SettingView extends StackedView<SettingViewModel> {
             const SizedBox(
               height: 20,
             ),
-
             Column(
               children: [
                 Column(
@@ -56,7 +58,30 @@ class SettingView extends StackedView<SettingViewModel> {
                     Text("Email: ${viewModel.userData?['email'] ?? ''}"),
                   ],
                 ),
-                ElevatedButton(onPressed: () {}, child: Text("delete profile"))
+                ElevatedButton(
+                    onPressed: () {
+                      viewModel.deleteAccount();
+                    },
+                    child: const Text("delete profile")),
+                SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      // showModalBottomSheet(
+                      //     context: context,
+                      //     builder: (context) {
+                      //       return UpdateProfileSheet(
+                      //         completer: viewModel.updateUserData(
+                      //             name: name, email: email),
+                      //         request: SheetRequest(
+                      //           title: "Update Profile",
+                      //           data: viewModel.userData,
+                      //         ),
+                      //       );
+                      //     });
+                    },
+                    child: const Text('Update Profile')),
               ],
             )
 

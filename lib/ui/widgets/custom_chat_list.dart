@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whats_app_clone/model/user_list_model.dart';
 import 'package:whats_app_clone/ui/widgets/list_tile/list_tile_leading.dart';
 import 'package:whats_app_clone/ui/widgets/list_tile/list_tile_title.dart';
+import 'package:whats_app_clone/ui/widgets/list_tile/list_title_subtitle.dart';
 import 'package:whats_app_clone/ui/widgets/list_tile/list_trailing.dart';
 
 class CustomChatList extends StatelessWidget {
@@ -23,19 +24,9 @@ class CustomChatList extends StatelessWidget {
         itemCount: chats.length,
         itemBuilder: (BuildContext context, index) {
           return ListTile(
-              // onTap: () {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) => ChatView(
-              //         title: chats[index].email,
-              //       ),
-              //     ),
-              //   );
-              // },
               leading: ListTileLeading(chats: chats, index: index),
               title: ListTileTitle(index: index, chats: chats),
-              subtitle: ListTileTitle(index: index, chats: chats),
+              subtitle: ListTileTitleSubtitle(index: index, chats: chats),
               trailing: ListTrailing(chats: chats, index: index));
         },
       ),

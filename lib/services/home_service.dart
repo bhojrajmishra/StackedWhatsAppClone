@@ -1,10 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:whats_app_clone/model/user_list_model.dart';
-import 'package:whats_app_clone/base/utils/api_path.dart';
-import 'package:whats_app_clone/network/dio_client.dart';
 
 class HomeService {
   static Future<List<UserListModel>> fetchUserList() async {
