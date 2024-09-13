@@ -7,7 +7,7 @@ import 'package:whats_app_clone/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/ui/views/login/login_view.dart';
-import 'package:whats_app_clone/services/home_service.dart';
+import 'package:whats_app_clone/ui/views/home/service/home_service.dart';
 import 'package:whats_app_clone/ui/views/chat/chat_view.dart';
 import 'package:whats_app_clone/ui/views/setting/setting_view.dart';
 import 'package:whats_app_clone/ui/views/registration/registration_view.dart';

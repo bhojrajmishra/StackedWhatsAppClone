@@ -15,6 +15,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();

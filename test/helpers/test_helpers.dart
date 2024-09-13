@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'package:whats_app_clone/services/home_service.dart';
+import 'package:whats_app_clone/ui/views/home/service/home_service.dart';
 // import 'package:whats_app_clone/services/secure_storage_service.dart';
 // @stacked-import
 

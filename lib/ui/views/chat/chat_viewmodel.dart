@@ -4,40 +4,54 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ChatViewModel extends BaseViewModel with Initialisable {
+  final String chatId;
+  ChatViewModel(this.chatId);
+
   @override
   Future<void> initialise() async {
     await fetchMessages();
   }
 
   final TextEditingController controller = TextEditingController();
-  final List<String> messages = [];
+  final List<String> messages = ['hello'];
   FirebaseFirestore db = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
-  bool isUserMessage = true;
 
   Future<void> sendMessage() async {
-    if (controller.text.isNotEmpty) {
-      messages.add(controller.text);
-      notifyListeners();
-      await db.collection('messages').add({
+    if (controller.text.isNotEmpty && user != null) {
+      final newMessage = {
         'message': controller.text,
-        'isUserMessage': isUserMessage,
-        'timestamp': DateTime.now(),
-      });
+        'userId': user!.uid,
+        'isUserMessage': true,
+        'timestamp': FieldValue.serverTimestamp(),
+      };
+      await db
+          .collection('chats')
+          .doc(chatId)
+          .collection('messages')
+          .add(newMessage);
       controller.clear();
+      notifyListeners();
     }
   }
 
   Future<void> fetchMessages() async {
-    final snapshot = await db.collection('messages').get();
-    messages.clear();
-    if (snapshot.docs.isEmpty) {
-      return;
-    }
-    for (final doc in snapshot.docs) {
-      messages.add(doc['message']);
-    }
-    notifyListeners();
+    db
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('timestamp', descending: true)
+        .limit(10)
+        .snapshots(includeMetadataChanges: true)
+        .listen((snapshot) {
+      messages.clear();
+      for (final doc in snapshot.docs) {
+        final data = doc.data();
+        data['id'] = doc.id;
+        data['isUserMessage'] = data['userId'] == user?.uid;
+        messages.add(data['message']);
+      }
+    });
   }
 
   @override

@@ -74,6 +74,9 @@ class SettingViewModel extends BaseViewModel with Initialisable {
         _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
       }
     } catch (e) {
+      snackbarService.showSnackbar(
+          message: 'Error deleting account: $e',
+          duration: const Duration(seconds: 2));
       debugPrint('Error: $e');
     }
   }

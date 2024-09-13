@@ -41,18 +41,42 @@ class ChatView extends StackedView<ChatViewModel> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: viewModel.messages.length,
-              itemBuilder: (context, index) {
-                final message = viewModel.messages[index];
-                final isUserMessage = index % 2 == 0;
-                return MessageBubble(
-                  message: message,
-                  isUserMessage: isUserMessage,
-                );
-              },
-            ),
-          ),
+              child: StreamBuilder(
+                  stream: viewModel.db
+                      .collection('chats')
+                      .doc('chatId')
+                      .collection('messages')
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        reverse: true,
+                        itemCount: viewModel.messages.length,
+                        itemBuilder: (context, index) {
+                          final message = viewModel.messages[index];
+                          final isUserMessage = title == viewModel.user?.email;
+                          return MessageBubble(
+                            timestamp: DateTime.now(),
+                            message: message,
+                            isUserMessage: isUserMessage,
+                          );
+                        },
+                      );
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  })
+              // child: ListView.builder(
+              //   itemCount: viewModel.messages.length,
+              //   itemBuilder: (context, index) {
+              //     final message = viewModel.messages[index];
+              //     final isUserMessage =  ;
+              //     return MessageBubble(
+              //       message: message,
+              //       isUserMessage: isUserMessage,
+              //     );
+              //   },
+              // ),
+              ),
           MessageInputRow(
             controller: viewModel.controller,
             onSendMessage: viewModel.sendMessage,
@@ -66,5 +90,5 @@ class ChatView extends StackedView<ChatViewModel> {
   ChatViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ChatViewModel();
+      ChatViewModel('chatId');
 }

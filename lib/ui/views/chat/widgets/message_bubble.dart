@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:whats_app_clone/theme/custom_theme.dart';
 
@@ -16,15 +17,16 @@ import 'package:whats_app_clone/theme/custom_theme.dart';
 class MessageBubble extends StatelessWidget {
   // The message text to display in the bubble.
   final String message;
-  final int? timestamp;
+  // final Timestamp timestamp;
   // A boolean value to determine if the message is sent by the user or received from another user.
   final bool isUserMessage;
+  final DateTime timestamp;
 
   /// Constructor for [MessageBubble].
   const MessageBubble({
     required this.message,
     required this.isUserMessage,
-    this.timestamp,
+    required this.timestamp,
     super.key,
   });
 
@@ -52,7 +54,7 @@ class MessageBubble extends StatelessWidget {
           ),
         ),
         child: Text(
-          message + (timestamp != null ? ' - $timestamp' : ''),
+          "$message  \n  ${timestamp.toLocal()}",
           style: TextStyle(
             // Set the text color based on the user message status.
             color: isUserMessage

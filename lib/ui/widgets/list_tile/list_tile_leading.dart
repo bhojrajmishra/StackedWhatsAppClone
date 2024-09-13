@@ -12,8 +12,8 @@ class ListTileLeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 25,
-      // backgroundImage: NetworkImage(chats[index].avatar),
+      radius: 20,
+      child: Text(chats[index].name[0]),
     );
   }
 }
