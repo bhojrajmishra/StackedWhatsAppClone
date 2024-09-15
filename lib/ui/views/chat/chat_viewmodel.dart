@@ -22,9 +22,9 @@ class ChatViewModel extends BaseViewModel with Initialisable {
   Future<void> _setChatId() async {
     final users = [user!.uid, otherUserId];
     users
-        .sort(); //this is for the sorting the user according to alfabetic order
+        .sort(); // This is for the sorting the user according to alphaabetic order
     chatId = users.join(
-        '_'); //this is for the join the users to arrange the chatId and make it unique for the chat
+        '_'); // This is for the join the users to arrange the chatId and make it unique for the chat
   }
 
   Future<void> sendMessage() async {

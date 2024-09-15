@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:whats_app_clone/theme/custom_theme.dart';
@@ -24,12 +25,20 @@ class HomeView extends StackedView<HomeViewModel> {
           actions: [
             IconButton(
               icon: const Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () => throw Exception(),
               color: CustomTheme.inversePrimary(context),
             ),
             IconButton(
               icon: const Icon(Icons.more_vert),
-              onPressed: () {},
+              onPressed: () {
+                FirebaseAnalytics.instance.logEvent(
+                  name: 'button_clicked',
+                  parameters: <String, dynamic>{
+                    'sample_string': 'clicked',
+                    'sample_int': 1,
+                  },
+                );
+              },
               color: CustomTheme.inversePrimary(context),
             ),
           ],

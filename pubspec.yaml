@@ -9,9 +9,12 @@ environment:
 dependencies:
   cloud_firestore: ^4.14.0
   dio: ^5.6.0
+  firebase_analytics: ^10.10.7
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
+  firebase_crashlytics: ^3.5.7
   firebase_database: ^10.5.7
+  firebase_remote_config: ^4.4.7
   flutter:
     sdk: flutter
   flutter_secure_storage: ^4.2.1
