@@ -9,10 +9,9 @@ import 'chat_viewmodel.dart';
 
 class ChatView extends StackedView<ChatViewModel> {
   final String title;
-  const ChatView({Key? key, required this.title})
-      : super(
-          key: key,
-        );
+  final String otherUserId;
+  const ChatView({Key? key, required this.title, required this.otherUserId})
+      : super(key: key);
 
   @override
   Widget builder(
@@ -41,42 +40,20 @@ class ChatView extends StackedView<ChatViewModel> {
       body: Column(
         children: [
           Expanded(
-              child: StreamBuilder(
-                  stream: viewModel.db
-                      .collection('chats')
-                      .doc('chatId')
-                      .collection('messages')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        reverse: true,
-                        itemCount: viewModel.messages.length,
-                        itemBuilder: (context, index) {
-                          final message = viewModel.messages[index];
-                          final isUserMessage = title == viewModel.user?.email;
-                          return MessageBubble(
-                            timestamp: DateTime.now(),
-                            message: message,
-                            isUserMessage: isUserMessage,
-                          );
-                        },
-                      );
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  })
-              // child: ListView.builder(
-              //   itemCount: viewModel.messages.length,
-              //   itemBuilder: (context, index) {
-              //     final message = viewModel.messages[index];
-              //     final isUserMessage =  ;
-              //     return MessageBubble(
-              //       message: message,
-              //       isUserMessage: isUserMessage,
-              //     );
-              //   },
-              // ),
-              ),
+            child: ListView.builder(
+              reverse: true,
+              itemCount: viewModel.messages.length,
+              itemBuilder: (context, index) {
+                final message = viewModel.messages[index];
+                final isUserMessage = message['userId'] == viewModel.user?.uid;
+                return MessageBubble(
+                  timestamp: message['timestamp']?.toDate() ?? DateTime.now(),
+                  message: message['message'],
+                  isUserMessage: isUserMessage,
+                );
+              },
+            ),
+          ),
           MessageInputRow(
             controller: viewModel.controller,
             onSendMessage: viewModel.sendMessage,
@@ -87,8 +64,6 @@ class ChatView extends StackedView<ChatViewModel> {
   }
 
   @override
-  ChatViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      ChatViewModel('chatId');
+  ChatViewModel viewModelBuilder(BuildContext context) =>
+      ChatViewModel(otherUserId);
 }

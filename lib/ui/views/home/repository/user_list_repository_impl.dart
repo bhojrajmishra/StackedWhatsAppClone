@@ -5,6 +5,6 @@ import 'package:whats_app_clone/ui/views/home/repository/user_list_repository.da
 class UserListRepositoryImpl implements UserListRepository {
   @override
   Future<List<UserListModel>> getUserList() async {
-    return await HomeService.fetchUserList();
+    return await HomeService.fetchAllUsers();
   }
 }

@@ -30,7 +30,8 @@ class CustomChatList extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChatView(
-                      title: chats[index].email,
+                      otherUserId: chats[index].id,
+                      title: chats[index].name,
                     ),
                   ),
                 );

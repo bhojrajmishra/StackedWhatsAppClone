@@ -15,66 +15,79 @@ class SettingView extends StackedView<SettingViewModel> {
     Widget? child,
   ) {
     final themeProvider = context.watch<ThemeModification>();
+
     return Scaffold(
       appBar: const UserAppBar(title: 'Setting'),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Theme Mode"),
-                Row(
-                  children: [
-                    Switch(
-                        value: context.watch<ThemeModification>().isDarkMode,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Theme Switch Row
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Theme Mode"),
+                  Row(
+                    children: [
+                      Switch(
+                        value: themeProvider.isDarkMode,
                         onChanged: (value) {
                           themeProvider.updateMode(darkMode: value);
-                        }),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Text(themeProvider.isDarkMode ? "Dark Mode" : "Light Mode"),
-                  ],
+                        },
+                      ),
+                      const SizedBox(width: 20),
+                      Text(themeProvider.isDarkMode
+                          ? "Dark Mode"
+                          : "Light Mode"),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              TextFormField(
+                controller: viewModel.nameController,
+                decoration: const InputDecoration(
+                  labelText: "Full Name",
+                  border: OutlineInputBorder(),
                 ),
-              ],
-            ),
-            ElevatedButton(
-                onPressed: viewModel.logout, child: const Text("Logout")),
-            const SizedBox(
-              height: 20,
-            ),
-            Column(
-              children: [
-                Column(
-                  children: [
-                    Text("Full Name: ${viewModel.userData?['name'] ?? ''}"),
-                    Text("Email: ${viewModel.userData?['email'] ?? ''}"),
-                  ],
+              ),
+              const SizedBox(height: 20),
+
+              TextFormField(
+                controller: viewModel.emailController,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      viewModel.deleteAccount();
-                    },
-                    child: const Text("delete profile")),
-                const SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                    onPressed: () {}, child: const Text('Update Profile')),
-              ],
-            )
-            // Display user data
-          ],
+              ),
+              const SizedBox(height: 20),
+
+              ElevatedButton(
+                onPressed: viewModel.updateUserData,
+                child: const Text('Update Profile'),
+              ),
+              const SizedBox(height: 20),
+
+              ElevatedButton(
+                onPressed: viewModel.deleteAccount,
+                child: const Text("Delete Account"),
+              ),
+              const SizedBox(height: 20),
+
+              ElevatedButton(
+                onPressed: viewModel.logout,
+                child: const Text("Logout"),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   @override
-  SettingViewModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      SettingViewModel();
+  SettingViewModel viewModelBuilder(BuildContext context) => SettingViewModel();
 }

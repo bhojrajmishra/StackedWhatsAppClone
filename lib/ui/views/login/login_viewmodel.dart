@@ -20,13 +20,11 @@ class LoginViewModel extends BaseViewModel {
     }
 
     setBusy(true);
-
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
-
       _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
       _snackbarService.showSnackbar(message: loginSuccessMessage);
     } catch (e) {

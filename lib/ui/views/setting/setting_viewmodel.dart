@@ -8,23 +8,36 @@ import 'package:whats_app_clone/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class SettingViewModel extends BaseViewModel with Initialisable {
+  final SnackbarService snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
+
+  Map<String, dynamic>? userData;
+  FirebaseFirestore db = FirebaseFirestore.instance;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
+  SettingViewModel() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+  }
+
   @override
   Future<void> initialise() async {
     await getUserData();
   }
 
-  final SnackbarService snackbarService = locator<SnackbarService>();
-  final NavigationService _navigationService = locator<NavigationService>();
-
-  Map<String, dynamic>? userData;
-
-  FirebaseFirestore db = FirebaseFirestore.instance;
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    super.dispose();
+  }
 
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
     debugPrint('User logged out');
     snackbarService.showSnackbar(message: 'User logged out');
-    // await _storageService.delete(key: 'token');
     _navigationService.pushNamedAndRemoveUntil(Routes.loginView);
   }
 
@@ -34,6 +47,8 @@ class SettingViewModel extends BaseViewModel with Initialisable {
       if (user != null) {
         final response = await db.collection('users').doc(user.uid).get();
         userData = response.data();
+        nameController.text = userData?['name'] ?? '';
+        emailController.text = userData?['email'] ?? '';
         notifyListeners();
       }
     } catch (e) {
@@ -41,16 +56,13 @@ class SettingViewModel extends BaseViewModel with Initialisable {
     }
   }
 
-  Future<void> updateUserData({
-    required String name,
-    required String email,
-  }) async {
+  Future<void> updateUserData() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         await db.collection('users').doc(user.uid).update({
-          'name': name,
-          'email': email,
+          'name': nameController.text,
+          'email': emailController.text,
         });
         snackbarService.showSnackbar(
             message: 'User data updated successfully',

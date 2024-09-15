@@ -91,6 +91,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ChatViewArguments>(nullOk: false);
       return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.ChatView(
+          otherUserId: args.chatId,
           key: args.key,
           title: args.title,
         ),

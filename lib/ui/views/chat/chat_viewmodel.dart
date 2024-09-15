@@ -4,25 +4,34 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ChatViewModel extends BaseViewModel with Initialisable {
-  final String chatId;
-  ChatViewModel(this.chatId);
+  final String otherUserId;
+  late String chatId;
+  ChatViewModel(this.otherUserId);
 
   @override
   Future<void> initialise() async {
+    await _setChatId();
     await fetchMessages();
   }
 
   final TextEditingController controller = TextEditingController();
-  final List<String> messages = ['hello'];
+  final List messages = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
+
+  Future<void> _setChatId() async {
+    final users = [user!.uid, otherUserId];
+    users
+        .sort(); //this is for the sorting the user according to alfabetic order
+    chatId = users.join(
+        '_'); //this is for the join the users to arrange the chatId and make it unique for the chat
+  }
 
   Future<void> sendMessage() async {
     if (controller.text.isNotEmpty && user != null) {
       final newMessage = {
         'message': controller.text,
         'userId': user!.uid,
-        'isUserMessage': true,
         'timestamp': FieldValue.serverTimestamp(),
       };
       await db
@@ -41,17 +50,27 @@ class ChatViewModel extends BaseViewModel with Initialisable {
         .doc(chatId)
         .collection('messages')
         .orderBy('timestamp', descending: true)
-        .limit(10)
-        .snapshots(includeMetadataChanges: true)
+        .limit(50)
+        .snapshots()
         .listen((snapshot) {
       messages.clear();
       for (final doc in snapshot.docs) {
         final data = doc.data();
         data['id'] = doc.id;
-        data['isUserMessage'] = data['userId'] == user?.uid;
-        messages.add(data['message']);
+        messages.add(data);
       }
+      notifyListeners();
     });
+  }
+
+  Future<void> deleteMessage(String messageId) async {
+    await db
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .doc(messageId)
+        .delete();
+    notifyListeners();
   }
 
   @override

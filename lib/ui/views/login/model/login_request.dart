@@ -7,7 +7,6 @@ class LoginRequest {
     required this.password,
   });
 
-  // Convert a JSON map into a LoginModel object
   factory LoginRequest.fromJson(Map<String, dynamic> json) {
     return LoginRequest(
       email: json['email'] ?? '',
@@ -15,7 +14,6 @@ class LoginRequest {
     );
   }
 
-  // Convert a LoginModel object into a JSON map
   Map<String, dynamic> toJson() {
     return {
       'email': email,
