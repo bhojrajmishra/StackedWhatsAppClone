@@ -1,3 +1,17 @@
+buildscript {
+    ext.kotlin_version = '1.8.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -5,34 +19,14 @@ allprojects {
     }
 }
 
-rootProject.buildDir = "../build"
+rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
-    project.evaluationDependsOn(":app")
+    project.evaluationDependsOn(':app')
 }
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
-}
-
-
-plugins {
-    // Make sure that you have the AGP plugin 8.1+ dependency
-    id 'com.android.application' version '8.1.4' apply false
-    // ...
-
-    // Make sure that you have the Google services Gradle plugin 4.4.1+ dependency
-    id 'com.google.gms.google-services' version '4.4.2' apply false
-
-    // Add the dependency for the Crashlytics Gradle plugin
-    id 'com.google.firebase.crashlytics' version '3.0.2' apply false
-}   
-
-dependencies {
-// ... other dependencies
-
-classpath 'com.google.gms:google-services:4.3.5'
-classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
 }
