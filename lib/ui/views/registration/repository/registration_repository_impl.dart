@@ -1,29 +1,38 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:whats_app_clone/ui/views/registration/model/registration_response.dart';
-// import 'package:whats_app_clone/ui/views/registration/repository/registration_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:whats_app_clone/ui/views/registration/model/registration_request.dart';
+import 'package:whats_app_clone/ui/views/registration/model/registration_response.dart';
+import 'package:whats_app_clone/ui/views/registration/repository/registration_repository.dart';
 
-// class RegistrationRepositoryImpl implements RegistrationRepository {
-//   final FirebaseAuth _firebaseAuth;
+class RegistrationRepositoryImplementation implements RegistrationRepository {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-//   RegistrationRepositoryImpl(this._firebaseAuth);
+  @override
+  Future<RegistrationResponse> requestRegistration(
+      RegistrationRequest request) async {
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: request.email,
+        password: request.password,
+      );
 
-//   @override
-//   Future<RegistrationResponse> requestRegistration(
-//       RegistrationRequest request) async {
-//     try {
-//       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-//         email: request.email,
-//         password: request.password,
-//       );
-//       return RegistrationResponse(
-//         email: userCredential.user?.email ?? '',
-//         password: 0,
-//       );
-//     } catch (e) {
-//       return RegistrationResponse(
-//         email: '',
-//         password: 0,
-//       );
-//     }
-//   }
-// }
+      String userId = userCredential.user!.uid;
+
+      await _firestore.collection("users").doc(userId).set({
+        "name": request.fullname,
+        "email": request.email,
+        "id": userId,
+      });
+
+      return RegistrationResponse(
+        fullName: request.fullname,
+        email: request.email,
+        password: request.password,
+      );
+    } catch (e) {
+      throw Exception('Registration failed: $e');
+    }
+  }
+}

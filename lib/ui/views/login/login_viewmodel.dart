@@ -4,13 +4,13 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/ui/common/app_strings.dart';
-import 'package:whats_app_clone/services/login_service.dart';
+import 'package:whats_app_clone/ui/views/login/service/login_service.dart';
 import 'package:whats_app_clone/ui/views/login/model/login_request.dart';
 
 class LoginViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
-  final _loginService = locator<LoginService>();
+  final _loginService = LoginService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -35,9 +35,10 @@ class LoginViewModel extends BaseViewModel {
       } else {
         _snackbarService.showSnackbar(message: loginFailedMessage);
       }
-    } catch (e) {
+    } catch (e, s) {
       _snackbarService.showSnackbar(message: loginFailedMessage);
       debugPrint('An error occurred: ${e.toString()}');
+      debugPrint('An error occurred: ${s.toString()}');
     } finally {
       setBusy(false);
     }

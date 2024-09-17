@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/model/user_list_model.dart';
 
 class HomeService {
   static Future<List<UserListModel>> fetchAllUsers() async {
     try {
-      final currentUser = FirebaseAuth.instance.currentUser;
+      final currentUser = locator<FirebaseAuth>().currentUser;
       if (currentUser == null) {
         throw Exception('No user logged in');
       }

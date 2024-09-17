@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// returns a button widget that takes in the following parameters text, icon, onPressed.
 class CustomButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final void Function()? onPressed;
 
   const CustomButton({
     required this.text,

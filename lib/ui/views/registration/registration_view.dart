@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:whats_app_clone/app/app.locator.dart';
+import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/ui/views/login/login_view.dart';
 import 'package:whats_app_clone/ui/widgets/custom_button.dart';
 import 'package:whats_app_clone/ui/widgets/custom_text_form_field.dart';
@@ -8,7 +11,9 @@ import 'package:whats_app_clone/base/utils/validator.dart';
 import 'registration_viewmodel.dart';
 
 class RegistrationView extends StackedView<RegistrationViewModel> {
-  const RegistrationView({Key? key}) : super(key: key);
+  final _navigator = locator<NavigationService>();
+
+  RegistrationView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
@@ -22,10 +27,7 @@ class RegistrationView extends StackedView<RegistrationViewModel> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginView()),
-            );
+            _navigator.pushNamedAndRemoveUntil(Routes.loginView);
           },
         ),
       ),
@@ -69,6 +71,7 @@ class RegistrationView extends StackedView<RegistrationViewModel> {
                           viewModel.requestRegisterApi();
                         },
                       ),
+                      const SizedBox(height: 23),
                     ],
                   ),
                 ),

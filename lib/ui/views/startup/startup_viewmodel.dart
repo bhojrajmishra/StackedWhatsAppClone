@@ -11,8 +11,7 @@ class StartupViewModel extends BaseViewModel {
 
   Future runStartupLogic() async {
     try {
-      await Future.delayed(
-          const Duration(seconds: 3)); // If needed for splash screen
+      await Future.delayed(const Duration(seconds: 3));
 
       _auth.authStateChanges().listen((User? user) {
         if (user == null) {

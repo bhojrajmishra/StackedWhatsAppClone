@@ -9,8 +9,8 @@ import 'chat_viewmodel.dart';
 
 class ChatView extends StackedView<ChatViewModel> {
   final String title;
-  final String otherUserId;
-  const ChatView({Key? key, required this.title, required this.otherUserId})
+  final String userId;
+  const ChatView({Key? key, required this.title, required this.userId})
       : super(key: key);
 
   @override
@@ -64,6 +64,5 @@ class ChatView extends StackedView<ChatViewModel> {
   }
 
   @override
-  ChatViewModel viewModelBuilder(BuildContext context) =>
-      ChatViewModel(otherUserId);
+  ChatViewModel viewModelBuilder(BuildContext context) => ChatViewModel(userId);
 }

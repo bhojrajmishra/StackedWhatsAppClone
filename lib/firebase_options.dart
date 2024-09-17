@@ -59,5 +59,4 @@ class DefaultFirebaseOptions {
     projectId: 'whatsappclone-35905',
     storageBucket: 'whatsappclone-35905.appspot.com',
   );
-
 }

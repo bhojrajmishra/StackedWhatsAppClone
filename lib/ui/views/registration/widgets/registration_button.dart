@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:whats_app_clone/app/app.locator.dart';
+import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/theme/custom_theme.dart';
-import 'package:whats_app_clone/ui/views/registration/registration_view.dart';
 
 class RegistrationButton extends StatelessWidget {
-  const RegistrationButton({super.key});
+  final String textData;
+  final void Function()? onTap;
+
+  const RegistrationButton(
+      {super.key, required this.textData, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have an account?"),
-        const SizedBox(width: 5),
         InkWell(
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const RegistrationView();
-            }));
-          },
+          onTap: onTap,
           child: Text(
-            "Register here!",
+            textData,
             style: TextStyle(
               color: CustomTheme.primary(context),
               fontWeight: FontWeight.bold,

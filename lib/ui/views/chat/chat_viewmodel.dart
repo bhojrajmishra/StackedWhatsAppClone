@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ChatViewModel extends BaseViewModel with Initialisable {
-  final String otherUserId;
+  final String userId;
   late String chatId;
-  ChatViewModel(this.otherUserId);
+  ChatViewModel(this.userId);
 
   @override
   Future<void> initialise() async {
@@ -19,12 +19,15 @@ class ChatViewModel extends BaseViewModel with Initialisable {
   FirebaseFirestore db = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
 
+//make unique chatId for the chat between two users by soring and joining the two users in the chat
   Future<void> _setChatId() async {
-    final users = [user!.uid, otherUserId];
+    final users = [user!.uid, userId];
     users
         .sort(); // This is for the sorting the user according to alphaabetic order
     chatId = users.join(
-        '_'); // This is for the join the users to arrange the chatId and make it unique for the chat
+        '_'); // This is for the join the users to arrange the chatId and make it unique for the chat and _ serpate the two users
+
+    // After sorting, this will always produce the same chatId for the same pair of users
   }
 
   Future<void> sendMessage() async {

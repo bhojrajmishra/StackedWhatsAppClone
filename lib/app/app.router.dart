@@ -83,7 +83,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i4.LoginView: (data) {
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.LoginView(),
+        builder: (context) => _i4.LoginView(),
         settings: data,
       );
     },
@@ -91,27 +91,23 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ChatViewArguments>(nullOk: false);
       return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.ChatView(
-          otherUserId: args.chatId,
-          key: args.key,
-          title: args.title,
-        ),
+            key: args.key, title: args.title, userId: args.otherUserId),
         settings: data,
       );
     },
     _i6.SettingView: (data) {
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => _i6.SettingView(),
+        builder: (context) => const _i6.SettingView(),
         settings: data,
       );
     },
     _i7.RegistrationView: (data) {
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i7.RegistrationView(),
+        builder: (context) => _i7.RegistrationView(),
         settings: data,
       );
     },
   };
-
   @override
   List<_i1.RouteDef> get routes => _routes;
 
@@ -121,30 +117,33 @@ class StackedRouter extends _i1.RouterBase {
 
 class ChatViewArguments {
   const ChatViewArguments({
-    required this.chatId,
     this.key,
     required this.title,
+    required this.otherUserId,
   });
 
   final _i8.Key? key;
 
   final String title;
-  final String chatId;
+
+  final String otherUserId;
 
   @override
   String toString() {
-    return '{"key": "$key", "title": "$title"}';
+    return '{"key": "$key", "title": "$title", "otherUserId": "$otherUserId"}';
   }
 
   @override
   bool operator ==(covariant ChatViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.title == title;
+    return other.key == key &&
+        other.title == title &&
+        other.otherUserId == otherUserId;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ title.hashCode;
+    return key.hashCode ^ title.hashCode ^ otherUserId.hashCode;
   }
 }
 
@@ -194,6 +193,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> navigateToChatView({
     _i8.Key? key,
     required String title,
+    required String otherUserId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -201,7 +201,8 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.chatView,
-        arguments: ChatViewArguments(chatId: title, key: key, title: title),
+        arguments:
+            ChatViewArguments(key: key, title: title, otherUserId: otherUserId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -281,6 +282,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> replaceWithChatView({
     _i8.Key? key,
     required String title,
+    required String otherUserId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -288,7 +290,8 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.chatView,
-        arguments: ChatViewArguments(chatId: title, key: key, title: title),
+        arguments:
+            ChatViewArguments(key: key, title: title, otherUserId: otherUserId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
