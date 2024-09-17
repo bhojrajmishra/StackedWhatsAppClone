@@ -5,15 +5,12 @@ import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/ui/common/app_strings.dart';
 import 'package:whats_app_clone/ui/views/registration/model/registration_request.dart';
-import 'package:whats_app_clone/ui/views/registration/service/registration_service.dart';
+import 'package:whats_app_clone/ui/views/registration/registration_view.form.dart';
+import 'package:whats_app_clone/ui/views/registration/repository/registration_repository.dart';
 
-class RegistrationViewModel extends BaseViewModel {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
+class RegistrationViewModel extends BaseViewModel with $RegistrationView {
   final GlobalKey<FormState> formsKey = GlobalKey<FormState>();
-
-  final _registrationService = locator<RegistrationService>();
+  final _registrationRepository = locator<RegistrationRepository>();
   final _navigationService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
 
@@ -30,7 +27,7 @@ class RegistrationViewModel extends BaseViewModel {
         password: passwordController.text,
       );
 
-      await _registrationService.requestRegistration(request);
+      await _registrationRepository.requestRegistration(request);
 
       _navigationService.replaceWith(Routes.loginView);
       _snackbarService.showSnackbar(message: registrationSuccessMessage);

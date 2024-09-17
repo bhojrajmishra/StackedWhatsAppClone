@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
-import 'package:whats_app_clone/ui/views/login/login_view.dart';
 import 'package:whats_app_clone/ui/widgets/custom_button.dart';
 import 'package:whats_app_clone/ui/widgets/custom_text_form_field.dart';
 import 'package:whats_app_clone/base/utils/validator.dart';
 
 import 'registration_viewmodel.dart';
 
+@FormView(fields: [
+  FormTextField(name: 'name', validator: Validator.userNameValidator),
+  FormTextField(name: 'email', validator: Validator.emailValidator),
+  FormTextField(name: 'password', validator: Validator.passwordValidator),
+])
 class RegistrationView extends StackedView<RegistrationViewModel> {
   final _navigator = locator<NavigationService>();
 
@@ -27,7 +32,9 @@ class RegistrationView extends StackedView<RegistrationViewModel> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            _navigator.pushNamedAndRemoveUntil(Routes.loginView);
+            _navigator.popUntil(
+              (route) => route.settings.name == Routes.loginView,
+            );
           },
         ),
       ),

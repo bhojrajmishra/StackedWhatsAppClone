@@ -4,15 +4,15 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:whats_app_clone/app/app.locator.dart';
 import 'package:whats_app_clone/app/app.router.dart';
 import 'package:whats_app_clone/ui/common/app_strings.dart';
-import 'package:whats_app_clone/ui/views/login/service/login_service.dart';
-import 'package:whats_app_clone/ui/views/login/model/login_request.dart';
+import 'package:whats_app_clone/ui/views/login/repository/login_repository.dart';
 
-class LoginViewModel extends BaseViewModel {
+import 'package:whats_app_clone/ui/views/login/model/login_request.dart';
+import 'package:whats_app_clone/ui/views/registration/registration_view.form.dart';
+
+class LoginViewModel extends BaseViewModel with $RegistrationView {
   final _navigationService = locator<NavigationService>();
   final _snackbarService = locator<SnackbarService>();
-  final _loginService = LoginService();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final _loginRepository = locator<LoginRepository>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Future<void> requestLoginApi() async {
@@ -27,7 +27,7 @@ class LoginViewModel extends BaseViewModel {
         email: emailController.text,
         password: passwordController.text,
       );
-      final response = await _loginService.requestLogin(request);
+      final response = await _loginRepository.requestLogin(request);
 
       if (response.email.isNotEmpty) {
         _navigationService.pushNamedAndRemoveUntil(Routes.homeView);

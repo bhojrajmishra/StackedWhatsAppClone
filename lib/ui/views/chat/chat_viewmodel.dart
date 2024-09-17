@@ -26,8 +26,8 @@ class ChatViewModel extends BaseViewModel with Initialisable {
         .sort(); // This is for the sorting the user according to alphaabetic order
     chatId = users.join(
         '_'); // This is for the join the users to arrange the chatId and make it unique for the chat and _ serpate the two users
-
-    // After sorting, this will always produce the same chatId for the same pair of users
+    //
+    // Also After sorting, this will always produce the same chatId for the same pair of users
   }
 
   Future<void> sendMessage() async {

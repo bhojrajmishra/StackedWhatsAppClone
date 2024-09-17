@@ -15,11 +15,12 @@ import 'package:stacked_shared/stacked_shared.dart';
 import 'package:whats_app_clone/ui/views/home/repository/user_list_repository_impl.dart';
 import 'package:whats_app_clone/ui/views/login/repository/login_repository.dart';
 import 'package:whats_app_clone/ui/views/login/repository/login_repository_impl.dart';
-import 'package:whats_app_clone/ui/views/login/service/login_service.dart';
 import 'package:whats_app_clone/ui/views/registration/repository/registration_repository.dart';
 import 'package:whats_app_clone/ui/views/registration/repository/registration_repository_impl.dart';
 import 'package:whats_app_clone/ui/views/registration/service/registration_service.dart';
+
 import '../ui/views/home/service/home_service.dart';
+import '../ui/views/login/service/login_service.dart';
 
 final locator = StackedLocator.instance;
 

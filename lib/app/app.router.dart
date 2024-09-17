@@ -82,16 +82,19 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i4.LoginView: (data) {
+      final args = data.getArgs<LoginViewArguments>(
+        orElse: () => const LoginViewArguments(),
+      );
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => _i4.LoginView(),
+        builder: (context) => _i4.LoginView(key: args.key),
         settings: data,
       );
     },
     _i5.ChatView: (data) {
       final args = data.getArgs<ChatViewArguments>(nullOk: false);
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => _i5.ChatView(
-            key: args.key, title: args.title, userId: args.otherUserId),
+        builder: (context) =>
+            _i5.ChatView(key: args.key, title: args.title, userId: args.userId),
         settings: data,
       );
     },
@@ -102,12 +105,16 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i7.RegistrationView: (data) {
+      final args = data.getArgs<RegistrationViewArguments>(
+        orElse: () => const RegistrationViewArguments(),
+      );
       return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => _i7.RegistrationView(),
+        builder: (context) => _i7.RegistrationView(key: args.key),
         settings: data,
       );
     },
   };
+
   @override
   List<_i1.RouteDef> get routes => _routes;
 
@@ -115,35 +122,77 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
+class LoginViewArguments {
+  const LoginViewArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant LoginViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 class ChatViewArguments {
   const ChatViewArguments({
     this.key,
     required this.title,
-    required this.otherUserId,
+    required this.userId,
   });
 
   final _i8.Key? key;
 
   final String title;
 
-  final String otherUserId;
+  final String userId;
 
   @override
   String toString() {
-    return '{"key": "$key", "title": "$title", "otherUserId": "$otherUserId"}';
+    return '{"key": "$key", "title": "$title", "userId": "$userId"}';
   }
 
   @override
   bool operator ==(covariant ChatViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key &&
-        other.title == title &&
-        other.otherUserId == otherUserId;
+    return other.key == key && other.title == title && other.userId == userId;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ title.hashCode ^ otherUserId.hashCode;
+    return key.hashCode ^ title.hashCode ^ userId.hashCode;
+  }
+}
+
+class RegistrationViewArguments {
+  const RegistrationViewArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant RegistrationViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
   }
 }
 
@@ -176,14 +225,16 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToLoginView([
+  Future<dynamic> navigateToLoginView({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.loginView,
+        arguments: LoginViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -193,7 +244,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> navigateToChatView({
     _i8.Key? key,
     required String title,
-    required String otherUserId,
+    required String userId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -201,8 +252,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.chatView,
-        arguments:
-            ChatViewArguments(key: key, title: title, otherUserId: otherUserId),
+        arguments: ChatViewArguments(key: key, title: title, userId: userId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -223,14 +273,16 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToRegistrationView([
+  Future<dynamic> navigateToRegistrationView({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.registrationView,
+        arguments: RegistrationViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -265,14 +317,16 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithLoginView([
+  Future<dynamic> replaceWithLoginView({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.loginView,
+        arguments: LoginViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -282,7 +336,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> replaceWithChatView({
     _i8.Key? key,
     required String title,
-    required String otherUserId,
+    required String userId,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -290,8 +344,7 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.chatView,
-        arguments:
-            ChatViewArguments(key: key, title: title, otherUserId: otherUserId),
+        arguments: ChatViewArguments(key: key, title: title, userId: userId),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -312,14 +365,16 @@ extension NavigatorStateExtension on _i9.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithRegistrationView([
+  Future<dynamic> replaceWithRegistrationView({
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.registrationView,
+        arguments: RegistrationViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
